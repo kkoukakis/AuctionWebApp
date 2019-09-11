@@ -27,6 +27,45 @@ CREATE TABLE IF NOT EXISTS `bid` (
 /*!40000 ALTER TABLE `bid` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bid` ENABLE KEYS */;
 
+-- Dumping structure for table auction_db.categories
+CREATE TABLE IF NOT EXISTS `categories` (
+  `CategoryID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table auction_db.categories: ~0 rows (approximately)
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+
+-- Dumping structure for table auction_db.item
+CREATE TABLE IF NOT EXISTS `item` (
+  `Name` varchar(50) NOT NULL,
+  `Category` varchar(50) NOT NULL,
+  `Currently` double DEFAULT NULL,
+  `Buy_Price` double NOT NULL,
+  `First_Bid` double NOT NULL,
+  `Number_of_Bids` int(11) NOT NULL,
+  `Bids` varchar(50) NOT NULL,
+  `Location` varchar(50) NOT NULL,
+  `Country` varchar(50) NOT NULL,
+  `Started` varchar(50) NOT NULL,
+  `Ends` varchar(50) NOT NULL,
+  `Seller_ID` varchar(50) NOT NULL,
+  `Item_ID` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table auction_db.item: ~0 rows (approximately)
+/*!40000 ALTER TABLE `item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `item` ENABLE KEYS */;
+
+-- Dumping structure for table auction_db.items
+CREATE TABLE IF NOT EXISTS `items` (
+  `Item_ID` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table auction_db.items: ~0 rows (approximately)
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+
 -- Dumping structure for table auction_db.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
