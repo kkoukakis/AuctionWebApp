@@ -27,15 +27,7 @@ class Welcome extends Component {
         return (
             <div>
                <h1>Welcome Page</h1> 
-               <div>
-               <a href="./login">Login</a> 
-               </div>
-               <div>
-               <a href="./logout">Logout</a> 
-               </div>
-               <div>
-               <a href="./main">Main</a> 
-               </div>
+            
             </div>
         );
     }

@@ -17,5 +17,7 @@ code {
 }
 
 html {
-  background-color: paleturquoise; 
+  background-color: #ECE9E6;
+  /*background-image: url("./img/background4.png"); */                       
+  /*background-repeat: initial;                     */   
 }

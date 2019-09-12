@@ -7,6 +7,7 @@ import logo from './logo.svg';
 //Components
 import Main from './components/Main/Main.js'
 import Footer from './components/Footer/Footer.js'
+import Nav from './components/Nav/Nav.js'
 import LoginPage from './components/Login/LoginPage.js'
 import Welcome from './components/Welcome/Welcome.js'
 import { Login, Logout } from './components/Auth/Auth.js';
@@ -33,7 +34,8 @@ class App extends Component {
   render() {
     return (
       <div>
-           <div className='container'> 
+           <div className='container1'> 
+           <Nav />
             <BrowserRouter>
               <Route exact path="/" component={Welcome}/>
               <Route path="/main"   component ={this.renderProtectedComponent(Main)} />
