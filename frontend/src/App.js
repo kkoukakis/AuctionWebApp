@@ -11,6 +11,7 @@ import Nav from './components/Nav/Nav.js'
 import LoginPage from './components/Login/LoginPage.js'
 import Welcome from './components/Welcome/Welcome.js'
 import Error404 from './components/Error404/Error404.js'
+import Search from './components/Nav/Search.js'
 import { Login, Logout } from './components/Auth/Auth.js';
 import './App.css';
 
@@ -35,6 +36,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Search/>
          <Nav />
            <div className='container1'> 
           

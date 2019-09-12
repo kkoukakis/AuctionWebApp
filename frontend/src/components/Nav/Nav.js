@@ -34,6 +34,8 @@ class Nav extends Component {
     render() {
         return (
         <div>
+          
+
          <div class="button_nav-container" id="toggle">
             <span class="top"></span>
             <span class="middle"></span>
@@ -50,9 +52,6 @@ class Nav extends Component {
               </ul>
             </nav>
           </div>
-            
-
-
           </div>
         );
     }
