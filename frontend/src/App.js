@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer.js'
 import Nav from './components/Nav/Nav.js'
 import LoginPage from './components/Login/LoginPage.js'
 import Welcome from './components/Welcome/Welcome.js'
+import Error404 from './components/Error404/Error404.js'
 import { Login, Logout } from './components/Auth/Auth.js';
 import './App.css';
 
@@ -34,12 +35,17 @@ class App extends Component {
   render() {
     return (
       <div>
+         <Nav />
            <div className='container1'> 
-           <Nav />
+          
             <BrowserRouter>
+             <Switch>
               <Route exact path="/" component={Welcome}/>
               <Route path="/main"   component ={this.renderProtectedComponent(Main)} />
-              <Route path="/login"  component={LoginPage} />     
+              <Route path="/login"  component={LoginPage} />  
+              <Route path="/404" component={Error404} />
+              <Redirect to="/404" />
+              </Switch>
             </BrowserRouter>
             </div>
             <Footer />    

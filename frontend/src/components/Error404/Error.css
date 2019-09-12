@@ -1,0 +1,59 @@
+
+ .error {
+     color: whitesmoke;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 50%;
+    background-image: url('../../img/error404.jpg');
+    background-size: cover;
+  }
+  
+
+
+  .error-text{
+    color: whitesmoke;
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   font-size: 500%;
+  
+ }
+
+ .error-text2{
+    color: whitesmoke;
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   font-size: 500%;
+
+ }
+
+ .error-text3 {
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+    animation-name: text1;
+    animation-duration: 3s;
+  }
+  
+  /* Safari 4.0 - 8.0 */
+  @-webkit-keyframes text1 {
+    from {color: red;}
+
+    to {color: yellow;}
+  }
+  
+  /* Standard syntax */
+  @keyframes text1 {
+    from {color: red;}
+    to {color: yellow;}
+  }
+
+  #centered {
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 100px; /* Need a specific value to work */
+  }
+  
