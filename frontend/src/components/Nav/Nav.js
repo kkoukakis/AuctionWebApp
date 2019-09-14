@@ -3,6 +3,8 @@ import $ from 'jquery';
 import css from './Nav.css';
 import Safe from "react-safe"
 
+import Search from './Search.js'
+
 class Nav extends Component {
     
     constructor(props) {
@@ -29,6 +31,8 @@ class Nav extends Component {
         $(this).toggleClass('active');
         $('#overlay').toggleClass('open');
        });     
+      
+    
     }
     
     render() {
@@ -45,6 +49,7 @@ class Nav extends Component {
           <div class="overlay" id="overlay">
             <nav class="overlay-menu">
               <ul>
+                <li>Hello, User</li>
                 <li ><a href="/">Home</a></li>
                 <li><a href="/login">Login</a></li>
                 <li><a href="/">Register</a></li>

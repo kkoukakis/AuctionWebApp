@@ -15,14 +15,20 @@ class Error404 extends Component {
         console.log("Error404 component did mount");    
         var timer = setTimeout(function() {
             window.location='/'
-        }, 3000);
+        }, 5000);
     }
     
     render() {
         return (
-        <div className="error">
-            <h1 className="centered error-text error-text3">ERROR 404: take me back to homepage</h1>
-        </div>
+        <main class="bsod container">
+            <h1 class="neg title"><span class="bg">Error - 404</span></h1>
+            <p>An error has occured, :</p>
+            <p>* We will return you to our homepage in 5 seconds<br />
+            * Send us an e-mail about this error and try later.</p>
+            <nav class="nav centered">
+              <a href="/" class="link">homepage</a>
+            </nav>
+          </main>
         );
     }
     

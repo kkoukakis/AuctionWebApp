@@ -36,13 +36,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Search/>
+        
          <Nav />
            <div className='container1'> 
           
             <BrowserRouter>
              <Switch>
               <Route exact path="/" component={Welcome}/>
+              <Route exact path="/item/:id" component={Welcome}/>
               <Route path="/main"   component ={this.renderProtectedComponent(Main)} />
               <Route path="/login"  component={LoginPage} />  
               <Route path="/404" component={Error404} />

@@ -10,7 +10,7 @@
   top: 40%;
   left: 0;
   margin: 0 auto;
-  font-family: 'Work Sans Bold';
+  font-family: 'Work Sans';
   font-size: 30px;
 }
 .nav-container p {
@@ -42,10 +42,10 @@
   width: 100%;
 }
 
-h1 {
+.h1a {
   position: relative;
   text-align: center;
-  font-family: 'Vollkorn', sans-serif;
+  font-family: 'Work Sans';
 }
 
 .button_nav-container {
