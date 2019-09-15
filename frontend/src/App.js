@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import logo from './logo.svg';
 
@@ -19,8 +20,9 @@ class App extends Component {
   constructor(props){
    super(props)
    this.state = {
-      token: "1",
-      username: "1"
+     
+      t: localStorage.getItem("token"),
+      username: localStorage.getItem("username")
     };
   }
 
@@ -32,7 +34,11 @@ class App extends Component {
         return (props) => <Redirect to='/login' />;
     }
   }
-
+componentWillMount(){
+  let t = localStorage.getItem('token');
+  let u = localStorage.getItem('username');
+}
+ 
   render() {
     return (
       <div>

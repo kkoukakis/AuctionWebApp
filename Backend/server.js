@@ -6,16 +6,14 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+const bodyParser = require('body-parser');
 //const users = require('./api/routes/users');
 
 
-// Setting Port 
-const  port = process.env.PORT || 3030;
-app.listen(port);
 
-console.log('REST API server started on: ' + port);
-
+//------------------
 //Database connection
+//------------------
 app.use(function(req, res, next){
 	global.connection = mysql.createConnection({
 		host     : 'localhost',
@@ -30,6 +28,11 @@ app.use(function(req, res, next){
     //console.log('Connected to DB');
     next();
 });
+
+
+//------------------
+//ALL ROUTES FOR API
+//------------------
 
 var router = app;
 router.get('/users', function(req, res, next) {
@@ -93,3 +96,13 @@ router.get('/bid', function(req, res, next) {
         //console.log("---");
     });
 });
+
+
+
+//-----------------
+// START THE SERVER
+//-----------------
+const  port = process.env.PORT || 3030;
+app.listen(port);
+
+console.log('Magic happens on port: ' + port);
