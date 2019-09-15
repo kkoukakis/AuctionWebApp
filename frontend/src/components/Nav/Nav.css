@@ -184,7 +184,7 @@
 .overlay ul li a {
   display: block;
   position: relative;
-  color: #FFF;
+  color: rgb(243, 239, 239);
   text-decoration: none;
   overflow: hidden;
 }

@@ -27,6 +27,7 @@ class Welcome extends Component {
         return (
             <div>
                <h1>Welcome Page</h1> 
+               <h3>Try to login first ^_^</h3> 
             
             </div>
         );
