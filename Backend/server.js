@@ -35,13 +35,15 @@ app.use(function(req, res, next){
 //------------------
 
 var router = app;
-router.get('/users', function(req, res, next) {
+router.get('/user', function(req, res, next) {
     var query = 'SELECT * from user';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
-        //console.log("["+query+"]" + JSON.stringify({"status": 200, "error": null, "response": results}));
-        //console.log("---");
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        res.send(JSON.stringify({"response": results}));
+        console.log("["+query+"]" + JSON.stringify({"response": results}));
+        console.log("---");
     });
 }); 
 
@@ -55,7 +57,7 @@ router.get('/users', function(req, res, next) {
     });
 });
 
-router.get('/user', function(req, res, next) {
+router.get('/user1', function(req, res, next) {
     var query = 'SELECT * from user';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
