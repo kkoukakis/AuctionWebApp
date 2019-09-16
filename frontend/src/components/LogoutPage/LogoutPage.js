@@ -7,7 +7,7 @@ class LogoutPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages:{}
+            progress: 0
         };
     }
     
@@ -32,6 +32,7 @@ class LogoutPage extends Component {
             <p>If you want to back to the home, press: <a href="/main">here</a></p>
             <p>*After logout you will return to homepage<br />
             </p>
+          
           </main>
         );
     }
