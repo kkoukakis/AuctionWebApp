@@ -20,4 +20,7 @@ html {
   background-color: #85cdca;
   /*background-image: url("./img/background4.png"); */                       
   /*background-repeat: initial;                     */   
+  font-family: 'Work Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

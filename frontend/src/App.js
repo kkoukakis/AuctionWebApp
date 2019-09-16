@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
-import logo from './logo.svg';
 
 //http://localhost:3000
+//Settings
+import server from './settings.js';
 
 //Components
 import Main from './components/Main/Main.js'
 import Footer from './components/Footer/Footer.js'
 import Nav from './components/Nav/Nav.js'
 import LoginPage from './components/Login/LoginPage.js'
+import LogoutPage from './components/LogoutPage/LogoutPage.js'
+import Register from './components/Register/Register.js'
 import Welcome from './components/Welcome/Welcome.js'
 import Error404 from './components/Error404/Error404.js'
 import Search from './components/Nav/Search.js'
@@ -21,19 +24,64 @@ class App extends Component {
    super(props)
    this.state = {
      
-      t: localStorage.getItem("token"),
+      token: localStorage.getItem("token"),
       username: localStorage.getItem("username")
     };
   }
 
   renderProtectedComponent(ProtectedComponent) {
-    if (this.state.username !== null) {
+    if (this.state.username !== null && this.state.username !== "0") {
         return (props) => <ProtectedComponent {...props} />;
     }
     else {
         return (props) => <Redirect to='/login' />;
     }
   }
+
+  
+  renderProtectedComponent(ProtectedComponent , type) {
+
+    if(type=="main"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+          return (props) => <ProtectedComponent {...props} />;
+      }
+      else {
+          return (props) => <Redirect to='/login' />;
+      }
+    }
+
+    if(type=="login"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+          
+          return (props) => <Redirect to='/main' />;
+      }
+      else {
+        return (props) => <ProtectedComponent {...props} />;
+      }
+    }
+  
+    if(type=="register"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+          
+          return (props) => <Redirect to='/main' />;
+      }
+      else {
+        return (props) => <ProtectedComponent {...props} />;
+      }
+    }
+
+    if(type=="main_loggedin"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+          
+          return (props) => <Redirect to='/main' />;
+      }
+      else {
+        return (props) => <ProtectedComponent {...props} />;
+      }
+    }
+
+  }
+
 componentWillMount(){
   let t = localStorage.getItem('token');
   let u = localStorage.getItem('username');
@@ -48,10 +96,12 @@ componentWillMount(){
           
             <BrowserRouter>
              <Switch>
-              <Route exact path="/" component={Welcome}/>
+              <Route exact path="/" component={this.renderProtectedComponent(Welcome, "main_loggedin")}/>
               <Route exact path="/item/:id" component={Welcome}/>
-              <Route path="/main"   component ={this.renderProtectedComponent(Main)} />
-              <Route path="/login"  component={LoginPage} />  
+              <Route path="/main"   component ={this.renderProtectedComponent(Main, "main")} />
+              <Route path="/login"  component={this.renderProtectedComponent(LoginPage, "login")} />  
+              <Route path="/logout"  component={LogoutPage} />  
+              <Route path="/register"  component={this.renderProtectedComponent(Register, "register")} />  
               <Route path="/404" component={Error404} />
               <Redirect to="/404" />
               </Switch>

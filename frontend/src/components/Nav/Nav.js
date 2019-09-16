@@ -16,16 +16,7 @@ class Nav extends Component {
     
     componentDidMount() {        
         console.log("Nav component did mount");
-       //$.ajax({
-       //     url: 'http://localhost:3030/texts.json',
-       //     dataType: 'json',                       
-       //     type: 'GET'            
-       //}).then ( data => {
-       //    console.log("Updating UI");
-       //    this.setState({
-       //        messages: data
-       //    });
-       //});
+ 
  
        $('#toggle').click(function() {
         $(this).toggleClass('active');
@@ -35,7 +26,37 @@ class Nav extends Component {
     
     }
     
+    
+
+
+
+
     render() {
+      let navrender = null;
+      if(localStorage.getItem('username') != undefined && localStorage.getItem('username') != "0" && localStorage.getItem('username') != null){
+        navrender = 
+        <ul>
+          <li> Hello, {localStorage.getItem('username')}</li>
+          <li><a href="/main">Home</a></li>
+          <li><a href="/logout">Logout</a></li>
+          <li><a href="/setitem">Set an auction</a></li>
+          <li><a href="/items">Items</a></li>
+          </ul>
+        ;
+      }
+      else
+      {
+        navrender = 
+         <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/items">Items</a></li>
+          </ul>
+       ;
+      }
+
+
         return (
         <div>
           
@@ -48,13 +69,7 @@ class Nav extends Component {
           
           <div class="overlay" id="overlay">
             <nav class="overlay-menu">
-              <ul>
-                <li>Hello, User</li>
-                <li ><a href="/">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/">Register</a></li>
-                <li><a href="/">Items</a></li>
-              </ul>
+             {navrender}
             </nav>
           </div>
           </div>

@@ -1,0 +1,1 @@
+window.globalServer = 'localhost:3030/';
