@@ -1,5 +1,5 @@
 /*@import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);*/
-@font-face { font-family: 'Work Sans' ; src: url('../../fonts/WorkSans-Light.ttf'); } 
+@font-face { font-family: 'FiraCode' ; src: url('../../fonts/FiraCode-Light.ttf'); } 
 @font-face { font-family: 'Work Sans Bold'; font-weight: bold; src: url('../../fonts/WorkSans-Bold.ttf');}
 
 .nav-container {
@@ -10,7 +10,7 @@
   top: 40%;
   left: 0;
   margin: 0 auto;
-  font-family: 'Work Sans';
+  font-family: 'FiraCode';
   font-size: 30px;
 }
 .nav-container p {
@@ -45,7 +45,7 @@
 .h1a {
   position: relative;
   text-align: center;
-  font-family: 'Work Sans';
+  font-family: 'FiraCode';
 }
 
 .button_nav-container {
@@ -160,7 +160,7 @@
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   font-size: 50px;
-  font-family: 'Vollkorn', serif;
+  font-family: 'FiraCode';
   font-weight: 400;
   text-align: center;
   z-index: 100;

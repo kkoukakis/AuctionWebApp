@@ -1,11 +1,11 @@
-@font-face { font-family: 'Work Sans' ; src: url('./fonts/WorkSans-Light.ttf'); } 
+@font-face { font-family: 'FiraCode' ; src: url('./fonts/FiraCode-Medium.ttf'); } 
 @font-face { font-family: 'Work Sans Bold'; font-weight: bold; src: url('./fonts/WorkSans-Bold.ttf');}
 body {
   margin: 0;
   /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;*/
-  font-family: 'Work Sans';
+ 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: rgb(0, 0, 0);
@@ -20,7 +20,7 @@ html {
   background-color: #85cdca;
   /*background-image: url("./img/background4.png"); */                       
   /*background-repeat: initial;                     */   
-  font-family: 'Work Sans';
+  font-family: 'FiraCode';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

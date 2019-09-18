@@ -28,7 +28,7 @@ class LogoutPage extends Component {
         
         return (
         <main class="centered">
-            <h1 className = "hed" >You are going to log out in:<div id="tim">5</div> seconds</h1>
+            <h1 className = "hed" >You are going to log out in:<div id="tim">5</div>sec</h1>
             <p>If you want to back to the home, press: <a href="/main">here</a></p>
             <p>*After logout you will return to homepage<br />
             </p>
