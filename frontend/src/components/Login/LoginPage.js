@@ -94,10 +94,10 @@ function communicate(url){
          dataType: 'json',                       
          type: 'GET'  ,
          crossDomain: true,
-        // data: {
-        //     username: u,
-        //     password: p
-        // },  
+         data: {
+             username: u,
+             password: p
+         },  
          success : function(data) {
             //alert( data['response'][0].UserID);
 
@@ -108,6 +108,7 @@ function communicate(url){
         error : function(req,error) {
             alert('Error occured:req['+req+"]["+error+"]");
         }
+
       //  beforeSend: setHeader,
     });
 }
