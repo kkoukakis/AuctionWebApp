@@ -7,7 +7,15 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-//const users = require('./api/routes/users');
+const jwt = require('jsonwebtoken');
+
+//Variables and Files
+const config = require('./config')
+const tokenList = {};
+
+//body parser configuration
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
 
@@ -25,7 +33,7 @@ app.use(function(req, res, next){
         if (err) throw err;
         console.log("Connected to DB");
     });
-    //console.log('Connected to DB');
+
     next();
 });
 
@@ -35,6 +43,76 @@ app.use(function(req, res, next){
 //------------------
 
 var router = app;
+
+// login
+
+router.post('/login' , (req,res) => {
+    const postData = req.body;
+    console.log('LOGINATTEMPT | req.body: '+ JSON.stringify(postData));
+    const user = {
+        "username": postData.u
+    }
+    var wrong = true;
+    var success = false;
+    // database authentication here, with username and password combination.
+    var query = 'SELECT * from user WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
+    console.log('Q:'+query);
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        if(results != null){
+            if(results == ""){
+             success = true;
+             wrong = true;
+            }else{
+                wrong = false;
+                
+             console.log(JSON.stringify({"response": results}));
+            }
+        }
+        else{ 
+            success = false;
+        }
+    });
+
+    if(success == true && wrong == false){
+    const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
+    const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
+    const response = {
+        "status": "Logged in",
+        "token": token,
+        "refreshToken": refreshToken,
+        "username": postData.u
+    }
+    tokenList[refreshToken] = response
+
+    var query = 'INSERT * INTO user ()WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
+    
+
+    res.status(200).json(response);
+    
+    console.log('SUCCESS LOGIN '+ response.token)
+    }
+    else{
+        
+        console.log('ERROR LOGIN [wrong password]:'+wrong + '[success:]'+success)
+        if(wrong == true){
+            res.status(200).json({"response": null});
+           }
+        if(success == false){
+        res.status(500).json({"response": null});
+        }
+      
+    }   
+})
+
+
+
+
+
+
+
+
+
 router.get('/user/auth/:UserID', function(req, res) {
     console.log(req.params.UserID);
     var query = 'SELECT * from user WHERE UserID = \'' + req.params.UserID +'\'';

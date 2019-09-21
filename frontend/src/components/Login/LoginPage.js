@@ -17,7 +17,7 @@ class LoginPage extends Component {
     
     }
     handleClick = function() {
-        communicate(server +'user/'+ document.getElementById('username').value);
+        communicate(server +'login');
       }
    
     
@@ -67,32 +67,33 @@ function setval_to_localstorage(name,input){
 }
 
 function communicate(url){
-    var u = getval_fromid('username');
-    var p = getval_fromid('password');
+    var un = getval_fromid('username');
+    var pa = getval_fromid('password');
     //alert(u +"|"+ p);
    // alert(server +"user");
     $.ajax({
          url: url,
          dataType: 'json',                       
-         type: 'GET'  ,
+         type: 'POST'  ,
          crossDomain: true,
-        // data: {
-        //     username: u,
-        //     password: p
-        // },  
+         data: {
+             u: un,
+             p: pa
+         },  
          success : function(data) {
              if(data['response'][0] != null){
-            alert( data['response'][0].UserID);
+        
+                alert( data['response'][0].UserID);
 
-            setval_to_localstorage('username', data['response'][0].UserID)
+                setval_to_localstorage('username', data['response'][0].UserID)
              
-            window.location.reload(false);
+                window.location.reload(false);
              }else{
-             alert('ERROR USERNAME/PASSWORD')
+                alert('ERROR USERNAME/PASSWORD')
              }
         },
         error : function(req,error) {
-            alert('Error occured:'+error+"]");
+            alert('Error occured:'+error);
         }
 
       //  beforeSend: setHeader,
