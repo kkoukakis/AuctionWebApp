@@ -79,14 +79,13 @@ router.post('/login' , (req,res) => {
              //insert token to db
              var query = 'UPDATE user SET token =' +'\'' + token+'\' , rtoken = \''+refreshToken+ '\'' + ' WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
             
-             console.log('SUCCESS LOGIN '+ response.token)
-             console.log('----------------------------')
+            // console.log('SUCCESS LOGIN '+ response.token)
+            // console.log('----------------------------')
              res.header("Access-Control-Allow-Origin", "*");
        
              return res.status(200).json(response);
          
         }else{ 
-            console.log('WHAT THE FCUK')
             success = false;
             bl = 1;
            

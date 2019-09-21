@@ -75,8 +75,7 @@ function logout_call(){
         },  
         success : function(data) {
             if(!isNullOrUndefined(data['token'])){
-       
-                
+                     
                localStorage.clear();
                window.location = '/';
             }else{
