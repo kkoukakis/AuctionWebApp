@@ -113,26 +113,4 @@ componentWillMount(){
   }
 }
 
-//render() {
-//  return (
-//    <div style={this.state.style}>
-//      <UserProvider value={this.state}>
-//          <Router>
-//              <div className='container'>  
-//                  <Nav />
-//                  <Route path="/" exact render={(props) => {
-//                      return <h1>Welcome {this.state.username === null? 'Stranger' : this.state.username}</h1>;
-//                  }}/>
-//                  <Route path="/main" render={this.renderProtectedComponent(Main)} />
-//                  <Route path="/other" render={this.renderProtectedComponent(Other)} />
-//                  <Route path="/login" component={Login} />                    
-//                  <Route path="/logout" render={this.renderProtectedComponent(Logout)} />                    
-//                  <Footer />                    
-//              </div>
-//          </Router>
-//      </UserProvider>
-//    </div>  
-//  );
-//}
-//}
 export default App;
