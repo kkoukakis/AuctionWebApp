@@ -35,18 +35,26 @@ app.use(function(req, res, next){
 //------------------
 
 var router = app;
-router.get('/user/:UserID', function(req, res) {
+router.get('/user/auth/:UserID', function(req, res) {
     console.log(req.params.UserID);
     var query = 'SELECT * from user WHERE UserID = \'' + req.params.UserID +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.send(JSON.stringify({"response": results}));
+        if(results != null)
+             res.send(JSON.stringify({"response": results}));
+        else{ 
+            res.send(JSON.stringify({"response": null}));
+        }
         console.log("["+query+"]" + JSON.stringify({"response": results}));
         console.log("---");
     });
 }); 
+
+
+
+
 
 router.get('/users', function(req, res) {
     var query = 'SELECT * from user';

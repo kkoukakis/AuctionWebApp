@@ -87,11 +87,12 @@ function communicate(url){
             setval_to_localstorage('username', data['response'][0].UserID)
              
             window.location.reload(false);
-             }
+             }else{
              alert('ERROR USERNAME/PASSWORD')
+             }
         },
         error : function(req,error) {
-            alert('Error occured:req['+req+"]["+error+"]");
+            alert('Error occured:'+error+"]");
         }
 
       //  beforeSend: setHeader,
