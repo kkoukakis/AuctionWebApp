@@ -17,8 +17,6 @@ const tokenList = {};
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-
-
 //------------------
 //Database connection
 //------------------
@@ -48,61 +46,62 @@ var router = app;
 
 router.post('/login' , (req,res) => {
     const postData = req.body;
+    console.log('----------------------------')
     console.log('LOGINATTEMPT | req.body: '+ JSON.stringify(postData));
     const user = {
         "username": postData.u
     }
     var wrong = true;
     var success = false;
+    var bl =0;
     // database authentication here, with username and password combination.
     var query = 'SELECT * from user WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
     console.log('Q:'+query);
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        if(results != null){
-            if(results == ""){
+        console.log("REUSLT:"+ JSON.stringify(results));
+        bl = 1;
+        if(JSON.stringify(results) !== null && JSON.stringify(results) !== ""){
+            
+             wrong = false;
              success = true;
-             wrong = true;
-            }else{
-                wrong = false;
-                
              console.log(JSON.stringify({"response": results}));
-            }
-        }
-        else{ 
+             bl = 1;
+             const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
+             const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
+             const response = {
+                 "status": "Logged in",
+                 "token": token,
+                 "refreshToken": refreshToken,
+                 "username": postData.u
+             }
+             tokenList[refreshToken] = response
+             //insert token to db
+             var query = 'UPDATE user SET token =' +'\'' + token+'\' , rtoken = \''+refreshToken+ '\'' + ' WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
+            
+             console.log('SUCCESS LOGIN '+ response.token)
+             console.log('----------------------------')
+             res.header("Access-Control-Allow-Origin", "*");
+       
+             return res.status(200).json(response);
+         
+        }else{ 
+            console.log('WHAT THE FCUK')
             success = false;
-        }
-    });
-
-    if(success == true && wrong == false){
-    const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
-    const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
-    const response = {
-        "status": "Logged in",
-        "token": token,
-        "refreshToken": refreshToken,
-        "username": postData.u
-    }
-    tokenList[refreshToken] = response
-
-    var query = 'INSERT * INTO user ()WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
-    
-
-    res.status(200).json(response);
-    
-    console.log('SUCCESS LOGIN '+ response.token)
-    }
-    else{
+            bl = 1;
+           
+         
+                console.log('ERROR LOGIN [wrong password]:'+ wrong + '[success:]'+success)
+                if(wrong == true){
+                     return res.status(200).json({"token": null});
+                   }
+                if(success == false){
+                    return  res.status(500).json({"token": null});
+                }
+              
+        }   
         
-        console.log('ERROR LOGIN [wrong password]:'+wrong + '[success:]'+success)
-        if(wrong == true){
-            res.status(200).json({"response": null});
-           }
-        if(success == false){
-        res.status(500).json({"response": null});
-        }
-      
-    }   
+    });
 })
 
 

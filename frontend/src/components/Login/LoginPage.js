@@ -3,8 +3,8 @@ import $ from 'jquery';
 import css from './LoginPage.css'
 import  '../../settings.js';
 
-var server = 'http://192.168.1.193:3030/';
-//var server = 'http://localhost:3030/';
+//var server = 'http://192.168.1.193:3030/';
+var server = 'http://localhost:3030/';
 
 class LoginPage extends Component {
     
@@ -81,11 +81,13 @@ function communicate(url){
              p: pa
          },  
          success : function(data) {
-             if(data['response'][0] != null){
+             if(data['token'] != null && data['token'] != ""){
         
-                alert( data['response'][0].UserID);
+                alert( data['username']);
 
-                setval_to_localstorage('username', data['response'][0].UserID)
+                setval_to_localstorage('username', data['username'])
+                setval_to_localstorage('token', data['token'])
+                setval_to_localstorage('rtoken', data['rtoken'])
              
                 window.location.reload(false);
              }else{

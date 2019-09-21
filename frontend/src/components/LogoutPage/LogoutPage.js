@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import css from './LogoutPage.css';
+import { isNullOrUndefined } from 'util';
+
+//var server = 'http://192.168.1.193:3030/';
+var server = 'http://localhost:3030/';
 
 class LogoutPage extends Component {
     
@@ -19,8 +23,9 @@ class LogoutPage extends Component {
             interval += 1000;
         }, 1000);
         var timer = setTimeout(function() {
-            localStorage.clear();
-            window.location='/';
+           logout_call();
+           //localStorage.clear();
+           //window.location = '/';
         }, 5000);
     }
     
@@ -42,7 +47,50 @@ class LogoutPage extends Component {
 
 
 
-export default LogoutPage;
 
+export default LogoutPage;
+function getval_fromid(id){
+
+    return document.getElementById(id).value;
+ 
+ }
+ 
+ function setval_to_localstorage(name,input){
+ 
+    localStorage.setItem(name,input);
+     
+ }
+
+function logout_call(){
+    var un = localStorage.getItem('username');
+    var to = localStorage.getItem('token');
+    $.ajax({
+        url: server+'logout',
+        dataType: 'json',                       
+        type: 'POST'  ,
+        crossDomain: true,
+        data: {
+            u: un,
+            t: to
+        },  
+        success : function(data) {
+            if(!isNullOrUndefined(data['token'])){
+       
+                
+               localStorage.clear();
+               window.location = '/';
+            }else{
+               alert('ERROR USERNAME/PASSWORD')
+            }
+       },
+       error : function(req,error) {
+           localStorage.clear();
+           window.location = '/';
+           alert('Error occured:'+error);
+       }
+
+     //  beforeSend: setHeader,
+   });
+}
 
 
