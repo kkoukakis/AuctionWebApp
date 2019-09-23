@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
+import {changebackground, server} from '../../settings.js';
+
 class Welcome extends Component {
     
     constructor(props) {
@@ -12,20 +14,16 @@ class Welcome extends Component {
     
     componentDidMount() {        
         console.log("Welcome component did mount");
-       //$.ajax({
-       //     url: 'http://localhost:3030/',
-       //     dataType: 'json',                       
-       //     type: 'GET'            
-       //}).then ( data => {
-       //    console.log("Updating UI");
-       //    this.setState({
-       //    });
-       //});
+        window.addEventListener('load', this.handleload());
+    }
+
+    handleload(){
+        changebackground('#ffbf55');
     }
     
     render() {
         return (
-            <div>
+            <div className="title"> 
                <h1>Welcome Page</h1> 
                <h3>Try to login first ^_^</h3> 
             

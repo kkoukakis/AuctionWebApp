@@ -57,3 +57,7 @@
     width: 100px; /* Need a specific value to work */
   }
   
+  .centered{
+    text-align: center;
+  }
+  

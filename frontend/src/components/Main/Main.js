@@ -22,7 +22,7 @@ class Main extends Component {
 
     render() {
         return (
-            <div style={html}>
+            <div className='title'>
                <h1>MAIN PAGE</h1> 
             </div>
         );

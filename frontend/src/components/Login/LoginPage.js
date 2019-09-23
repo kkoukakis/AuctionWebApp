@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import css from './LoginPage.css'
-import  '../../settings.js';
+import {changebackground, server} from '../../settings.js';
 
-//var server = 'http://192.168.1.193:3030/';
-var server = 'http://localhost:3030/';
 
 class LoginPage extends Component {
     
@@ -24,11 +22,20 @@ class LoginPage extends Component {
      
     componentDidMount() {        
         console.log("LoginPage component did mount");
+        window.addEventListener('load', this.handleload());
   
     }
-    
+  
+    handleload(){
+        changebackground('#b29bc7');
+    }
+
     render() {
         return (
+            <div>
+            <div className="title">
+                <h1>Login</h1>
+            </div>
          <div className="center-screen">
             <h2 className="hi_there">Hi there!</h2>
             <h5>Please fill out the following form so we can remember who you are.</h5>
@@ -44,6 +51,7 @@ class LoginPage extends Component {
             <div className="container2">
             <button className="btn" onClick={this.handleClick} >Log In</button>
             </div>
+        </div>
         </div>
         );
     }

@@ -90,10 +90,10 @@ componentWillMount(){
   render() {
     return (
       <div>
-        
+        <div className="nav">
          <Nav />
+         </div>
            <div className='container1'> 
-          
             <BrowserRouter>
              <Switch>
               <Route exact path="/" component={this.renderProtectedComponent(Welcome, "main_loggedin")}/>
@@ -107,7 +107,9 @@ componentWillMount(){
               </Switch>
             </BrowserRouter>
             </div>
-            <Footer />    
+            <div className='footer'>
+            <Footer />
+            </div>    
       </div>  
     );
   }

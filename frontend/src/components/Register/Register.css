@@ -2,18 +2,19 @@
 
 .center-screen {
     text-align: center;
-    margin-top: 10%;
+    margin-top: 20px;
     border: 1px solid white;
     font-family: 'FiraCode';
-    background-color: #6792904d;
+   /* background-color: #6792904d;*/
     height:100%;
    }
    .labelslog{
        font-size: 14px;
-       color: black;
+       color: rgb(66, 58, 58);
    }
    .input2{
        height: 30px;
+       width: 250px;
    }
    
    button {

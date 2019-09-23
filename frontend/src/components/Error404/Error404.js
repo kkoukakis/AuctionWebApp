@@ -20,15 +20,15 @@ class Error404 extends Component {
     
     render() {
         return (
-        <main class="bsod container">
-            <h1 class="neg title"><span class="bg">Error - 404</span></h1>
-            <p>An error has occured, :</p>
-            <p>* We will return you to our homepage in 5 seconds<br />
+        <div className="centered">
+            <h1 className="neg title"><span className="bg">Error - 404</span></h1>
+            <p className="centered">An error has occured, :</p>
+            <p className="centered">* We will return you to our homepage in 5 seconds<br />
             * Send us an e-mail about this error and try later.</p>
-            <nav class="nav centered">
-              <a href="/" class="link">homepage</a>
+            <nav className="nav centered">
+              <a href="/" className="link">homepage</a>
             </nav>
-          </main>
+          </div>
         );
     }
     
