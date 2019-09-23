@@ -15,6 +15,7 @@ import LogoutPage from './components/LogoutPage/LogoutPage.js'
 import Register from './components/Register/Register.js'
 import Welcome from './components/Welcome/Welcome.js'
 import Error404 from './components/Error404/Error404.js'
+import isAuthenticated from './components/Auth/Auth.js'
 import Search from './components/Nav/Search.js'
 import { Login, Logout } from './components/Auth/Auth.js';
 import './App.css';
