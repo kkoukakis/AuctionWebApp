@@ -50,7 +50,7 @@ class Register extends Component {
             <a href="/register">Check our terms and conditions. Click here.</a>
             </p>
             <div className="container2">
-            <button type="submit" className="btn" onClick={this.handleClick} >Log In</button>
+            <button type="submit" className="button-register" onClick={this.handleClick} >Log In</button>
             </div>
         </div>
         </div>

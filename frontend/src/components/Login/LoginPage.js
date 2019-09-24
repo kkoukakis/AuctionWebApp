@@ -49,7 +49,7 @@ class LoginPage extends Component {
             <a href="/register">Dont have an account? Click here.</a>
             </p>
             <div className="container2">
-            <button className="btn" onClick={this.handleClick} >Log In</button>
+            <button className="btn button-login" onClick={this.handleClick} >Log In</button>
             </div>
         </div>
         </div>

@@ -1,4 +1,4 @@
-export function isAuthenticated(req, res, next) {
+/*export function isAuthenticated(req, res, next) {
     if (typeof req.headers.authorization !== "undefined") {
         // retrieve the authorization header and parse out the
         // JWT using the split function
@@ -24,4 +24,4 @@ export function isAuthenticated(req, res, next) {
         res.status(500).json({ error: "Not Authorized" });
         throw new Error("Not Authorized");
     }
-}
+}*/
