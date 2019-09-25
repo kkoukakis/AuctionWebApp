@@ -89,7 +89,7 @@ function communicate(url){
              p: pa
          },  
          success : function(data) {
-             if(data['token'] != null && data['token'] != ""){
+             if(data['token'] != null && data['token'] != "" && data['response']!="wrong"){
         
                 alert( data['username']);
 

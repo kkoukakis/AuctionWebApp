@@ -43,7 +43,6 @@ app.use(function(req, res, next){
 var router = app;
 
 // login
-
 router.post('/login' , (req,res) => {
     const postData = req.body;
     console.log('----------------------------')
@@ -66,6 +65,9 @@ router.post('/login' , (req,res) => {
              wrong = false;
              success = true;
              console.log(JSON.stringify({"response": results}));
+             //console.log('a'+results)
+             //var check = result + '.';
+             if(results === undefined)return res.status(200).json({"response": "wrong"});
              bl = 1;
              const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
              const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
@@ -77,7 +79,7 @@ router.post('/login' , (req,res) => {
              }
              tokenList[refreshToken] = response
              //insert token to db
-             var query = 'UPDATE user SET token =' +'\'' + token+'\' , rtoken = \''+refreshToken+ '\'' + ' WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
+            // var query = 'UPDATE user SET token =' +'\'' + token+'\' , rtoken = \''+refreshToken+ '\'' + ' WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
             
             // console.log('SUCCESS LOGIN '+ response.token)
             // console.log('----------------------------')
@@ -105,10 +107,27 @@ router.post('/login' , (req,res) => {
 
 
 
+router.post('/token', (req,res) => {
+    // refresh the damn token
+    const postData = req.body
+    // if refresh token exists
+    if((postData.refreshToken) && (postData.refreshToken in tokenList)) {
+        const user = {
+            "username": postData.u
+        }
+        const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
+        const response = {
+            "token": token,
+        }
+        // update the token in the list
+        tokenList[postData.refreshToken].token = token
+        res.status(200).json(response);        
+    } else {
+        res.status(404).send('Invalid request')
+    }
+})
 
-
-
-
+router.use(require('./api/auth/auth'));
 
 
 router.get('/user/auth/:UserID', function(req, res) {
