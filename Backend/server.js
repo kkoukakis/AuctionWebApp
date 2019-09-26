@@ -26,20 +26,18 @@ app.use(function(req, res, next){
 	global.connection = mysql.createConnection(dbjson);
     connection.connect(function(err) {
         if (err) throw err;
-        console.log("DB request/connection");
+        console.log("(DB request/connection)");
     });
 
     next();
 });
 
 
-//------------------
-//ALL ROUTES FOR API
-//------------------
+//------------------//
+//ALL ROUTES FOR API//
+//------------------//
 
-var router = app;
-
-
+var router = app; //express.js router
 
 //---------//
 //  login  //
@@ -47,7 +45,7 @@ var router = app;
 
 router.post('/login' , (req,res) => {
     const postData = req.body;
-    console.log('/login ['+postData.u+']');
+    console.log('>> /login ['+postData.u+']');
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     const user = { "username": postData.u , "password": postData.p}
@@ -60,7 +58,7 @@ router.post('/login' , (req,res) => {
         if (error) throw error;
         console.log('Users Found:'+ results.length);
         if(results.length === 1){
-             wrong = false; success = true; //wrong password = false , success results = true;
+             wrong = false; //wrong password = false 
 
              const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
              const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
@@ -78,15 +76,13 @@ router.post('/login' , (req,res) => {
             return res.status(200).json(response);
          
         }else{ 
-            success = false;
-            bl = 1;
-                console.log('error login: password ['+ wrong + '] success:['+success+"]")
+            
+                console.log('error login: credentials ['+ !wrong + ']')
                 if(wrong === true){
                     
                      return res.status(200).json({"token": "wrong"});
                    }
-                if(success === false){
-                   
+                else{
                     return  res.status(500).json({"token": null});
                 }
               
@@ -102,7 +98,7 @@ router.post('/login' , (req,res) => {
 //  token  //
 //---------//
 router.post('/token', (req,res) => {
-    console.log('/token');
+    console.log('>> /token');
     // refresh the damn token
     const postData = req.body
     // if refresh token exists
@@ -123,23 +119,36 @@ router.post('/token', (req,res) => {
     }
 })
 
+//--------------//
+//REGISTER USER
+//--------------//
+
+router.post('/register', function(req, res, next) {
+    var query = ' from user';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        res.send(JSON.stringify(results));
+    });
+});
+
 //============================================//
 //ALL CALLS FROM NOW ON NEED TO BE AUTHORIZED
 //============================================//
 
 router.use(require('./api/auth/auth'));
-// router.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 
 //-----------------------//
 //  get details of user  //
 //-----------------------//
 router.get('/user/auth/:UserID', function(req, res) {
-    console.log('/user/auth/'+params.UserID);
+    console.log('>> /user/auth/'+params.UserID);
     var query = 'SELECT * from user WHERE UserID = \'' + req.params.UserID +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
@@ -155,7 +164,7 @@ router.get('/user/auth/:UserID', function(req, res) {
 
 router.post('/logout' , (req,res) => {
     const postData = req.body;
-    console.log('/logout');
+    console.log('>> /logout');
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     const user = {
@@ -170,7 +179,7 @@ router.post('/logout' , (req,res) => {
         if(results.length === 1){
             
             updatedb("","",user.username);
-            res.status(200).json({"token":"loggedout"})
+            return res.status(200).json({"token":"loggedout"})
          
         }else{ 
             console.log('END: /logout WITH ERROR');
@@ -182,16 +191,21 @@ router.post('/logout' , (req,res) => {
 })
 
 
-router.get('/users', function(req, res) {
-    var query = 'SELECT * from user';
+router.get('/admin/online', function(req, res) {
+    console.log('>> /admin/online')
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    
+    var query = 'SELECT * from user WHERE LEN(token)>2 ';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        return res.status(200).json({"response":results})
     });
 });
 
 
-router.get('/adduser', function(req, res, next) {
+router.post('/admin/adduser', function(req, res, next) {
     var query = ' from user';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
@@ -199,6 +213,8 @@ router.get('/adduser', function(req, res, next) {
         res.send(JSON.stringify(results));
     });
 });
+
+
 
 router.get('/bids', function(req, res, next) {
     var query = 'SELECT * from user';

@@ -9,7 +9,7 @@ module.exports = (req,res,next) => {
     
     jwt.verify(token, config.secret, function(err, decoded) {
         if (err) {
-            console.log('Unauthorized')
+            console.log('(Unauthorized)')
             return res.status(401).json({"error": true, "message": 'Unauthorized access.' });
         }
       req.decoded = decoded;
@@ -18,13 +18,13 @@ module.exports = (req,res,next) => {
       if (Date.now() >= exp * 1000) {
         return res.status(401).json({"error": true, "message": 'Unauthorized access.' });
       }
-
+      console.log('(Authorized)')
       next();
     });
   } else {
     // if there is no token
     // return an error
-    console.log('No token')
+    console.log('(No token)')
     return res.status(403).send({
         "error": true,
         "message": 'No token provided.'
