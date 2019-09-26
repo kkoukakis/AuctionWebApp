@@ -89,21 +89,20 @@ function communicate(url){
              p: pa
          },  
          success : function(data) {
-             if(data['token'] != null && data['token'] != "" && data['response']!="wrong"){
+             if(data['token'] != null && data['token'] != "" && data['token']!="wrong"){
         
-                alert( data['username']);
-
+                alert('Welcome back, '+ data['username']);
                 setval_to_localstorage('username', data['username'])
                 setval_to_localstorage('token', data['token'])
                 setval_to_localstorage('rtoken', data['rtoken'])
              
                 window.location.reload(false);
-             }else{
-                alert('ERROR USERNAME/PASSWORD')
+             }else if(data['token'] == "wrong"){
+                alert('ERROR CREDENTIALS')
              }
         },
         error : function(req,error) {
-            alert('Error occured:'+error);
+            alert('ERROR OCCURED:'+error);
         }
 
       //  beforeSend: setHeader,

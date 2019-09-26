@@ -24,8 +24,6 @@ class LogoutPage extends Component {
         }, 1000);
         var timer = setTimeout(function() {
            logout_call();
-           //localStorage.clear();
-           //window.location = '/';
         }, 5000);
     }
     
@@ -37,29 +35,14 @@ class LogoutPage extends Component {
             <p>If you want to back to the home, press: <a href="/main">here</a></p>
             <p>*After logout you will return to homepage<br />
             </p>
-          
           </main>
         );
     }
     
 }
 
-
-
-
-
 export default LogoutPage;
-function getval_fromid(id){
 
-    return document.getElementById(id).value;
- 
- }
- 
- function setval_to_localstorage(name,input){
- 
-    localStorage.setItem(name,input);
-     
- }
 
 function logout_call(){
     var un = localStorage.getItem('username');
@@ -71,15 +54,15 @@ function logout_call(){
         crossDomain: true,
         data: {
             u: un,
-            t: to
+            token: to
         },  
         success : function(data) {
-            if(!isNullOrUndefined(data['token'])){
+            if(!isNullOrUndefined(data['token']) && data['token']=="loggedout"){
                      
                localStorage.clear();
                window.location = '/';
             }else{
-               alert('ERROR USERNAME/PASSWORD')
+               alert('ERROR LOGGING OUT')
             }
        },
        error : function(req,error) {
