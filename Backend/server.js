@@ -47,31 +47,21 @@ var router = app;
 
 router.post('/login' , (req,res) => {
     const postData = req.body;
-    console.log('START: /login');
-    console.log('-------');
-    console.log('LOGINATTEMPT | req.body: '+ JSON.stringify(postData));
+    console.log('/login ['+postData.u+']');
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    const user = {
-        "username": postData.u
-    }
+    const user = { "username": postData.u , "password": postData.p}
     var wrong = true;
     var success = false;
-    var dbtoken;
-    var dbrtoken;
-    var bl =0;
+    
     // database authentication here, with username and password combination.
-    var query = 'SELECT * from user WHERE UserID = \'' + postData.u +'\' AND Password = \'' + postData.p +'\'';
+    var query = 'SELECT * from user WHERE UserID = \'' + user.username +'\' AND Password = \'' + user.password +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        console.log('Affected rows:'+results.length);
+        console.log('Users Found:'+ results.length);
         if(results.length === 1){
-            
-             wrong = false;
-             success = true;
+             wrong = false; success = true; //wrong password = false , success results = true;
 
-             //var check = result + '.';
-             bl = 1;
              const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
              const refreshToken = jwt.sign(user, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
              const response = {
@@ -83,27 +73,20 @@ router.post('/login' , (req,res) => {
              tokenList[refreshToken] = response
             //update token to db
            updatedb(token,refreshToken,user.username);
-          
-           
-            console.log(tokenList);
-            // console.log('SUCCESS LOGIN '+ response.token)
-            // console.log('----------------------------')
-            console.log('-------');
-            console.log('END: /login');
-             return res.status(200).json(response);
+
+            //console.log(tokenList);
+            return res.status(200).json(response);
          
         }else{ 
             success = false;
             bl = 1;
-                console.log('ERROR LOGIN [wrong password]:'+ wrong + '[success:]'+success)
+                console.log('error login: password ['+ wrong + '] success:['+success+"]")
                 if(wrong === true){
-                    console.log('-------w');
-                    console.log('END: /login');
+                    
                      return res.status(200).json({"token": "wrong"});
                    }
                 if(success === false){
-                    console.log('-------s');
-                    console.log('END: /login');
+                   
                     return  res.status(500).json({"token": null});
                 }
               
@@ -149,6 +132,7 @@ router.use(require('./api/auth/auth'));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
+
 
 //-----------------------//
 //  get details of user  //
