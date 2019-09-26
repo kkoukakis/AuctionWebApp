@@ -60,20 +60,27 @@ router.post('/login' , (req,res) => {
 
         console.log('[User found:'+results.length +'] IP:'+ip);
         if(results.length === 1){
+            
+            var type= null;
+            if(results[0].UserTYPE==='1') {type ="1"; console.log('Hello admin');}
+            if(results[0].UserTYPE==='0') type =null;
+           
              wrong = false; //wrong password = false 
              var today = new Date();
+
              const token = jwt.sign(user, config.secret+today.getDay(), { expiresIn: config.tokenLife})
              const refreshToken = jwt.sign(user, config.refreshTokenSecret+Date.now(), { expiresIn: config.refreshTokenLife})
              const response = {
                  "status": "Logged in",
                  "token": token,
                  "refreshToken": refreshToken,
-                 "username": postData.u
+                 "username": postData.u,
+                 "type": type
              }
              tokenList[refreshToken] = response
-            //update token to db
-            updatedb(token,refreshToken,user.username);
-            //console.log(tokenList);
+             //update token to db
+             updatedb(token,refreshToken,user.username);
+             //console.log(tokenList);
             return res.status(200).json(response);
         }else{ 
                 console.log('error login: credentials ['+ !wrong + ']')
@@ -140,7 +147,7 @@ router.use(function(req, res, next) {
 //  get details of user  //
 //-----------------------//
 router.get('/user/auth/:UserID', function(req, res) {
-    console.log('>> /user/auth/'+params.UserID);
+    console.log('>> /user/auth/'+req.params.UserID);
     var query = 'SELECT * from user WHERE UserID = \'' + req.params.UserID +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;

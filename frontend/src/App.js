@@ -39,9 +39,9 @@ class App extends Component {
   }
 
   
-  renderProtectedComponent(ProtectedComponent , type) {
+  renderProtectedComponent(ProtectedComponent , page) {
 
-    if(type=="main"){
+    if(page==="main"){
       if (this.state.username !== null && this.state.username !== "0" ) {
           return (props) => <ProtectedComponent {...props} />;
       }
@@ -50,7 +50,7 @@ class App extends Component {
       }
     }
 
-    if(type=="login"){
+    if(page==="login"){
       if (this.state.username !== null && this.state.username !== "0" ) {
           
           return (props) => <Redirect to='/main' />;
@@ -60,7 +60,7 @@ class App extends Component {
       }
     }
   
-    if(type=="register"){
+    if(page==="register"){
       if (this.state.username !== null && this.state.username !== "0" ) {
           
           return (props) => <Redirect to='/main' />;
@@ -70,10 +70,20 @@ class App extends Component {
       }
     }
 
-    if(type=="main_loggedin"){
+    if(page==="main_loggedin"){
       if (this.state.username !== null && this.state.username !== "0" ) {
           
           return (props) => <Redirect to='/main' />;
+      }
+      else {
+        return (props) => <ProtectedComponent {...props} />;
+      }
+    }
+    if(page==="main_visitor"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+          
+          return (props) => <Redirect to='/main' />;
+          
       }
       else {
         return (props) => <ProtectedComponent {...props} />;
@@ -85,12 +95,13 @@ class App extends Component {
 componentWillMount(){
   let t = localStorage.getItem('token');
   let u = localStorage.getItem('username');
+  let type = localStorage.getItem('type');
 }
  
   render() {
     return (
       <div>
-        <div className="nav">
+         <div className="nav">
          <Nav />
          </div>
            <div className='container1'> 
@@ -104,12 +115,12 @@ componentWillMount(){
               <Route path="/register"  component={this.renderProtectedComponent(Register, "register")} />  
               <Route path="/404" component={Error404} />
               <Redirect to="/404" />
-              </Switch>
-            </BrowserRouter>
-            </div>
-            <div className='footer'>
-            <Footer />
-            </div>    
+             </Switch>
+           </BrowserRouter>
+          </div>
+          <div className='footer'>
+           <Footer />
+          </div>    
       </div>  
     );
   }

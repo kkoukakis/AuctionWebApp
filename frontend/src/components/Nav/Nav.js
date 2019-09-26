@@ -34,15 +34,46 @@ class Nav extends Component {
     render() {
       let navrender = null;
       if(localStorage.getItem('username') != undefined && localStorage.getItem('username') != "0" && localStorage.getItem('username') != null){
+      if(localStorage.getItem('type') === undefined || localStorage.getItem('type') === "0" || localStorage.getItem('type') === null || localStorage.getItem('type')==="1"){
         navrender = 
         <ul>
-          <li> Hello, {localStorage.getItem('username')}</li>
-          <li><a href="/main">Home</a></li>
-          <li><a href="/logout">Logout</a></li>
-          <li><a href="/setitem">Set an auction</a></li>
-          <li><a href="/items">Items</a></li>
+          <li> Admin, {localStorage.getItem('username')}</li>
+          <li><a href="/allusers">All Users</a>
+           <a href="/usersonline">Users Online</a>
+           <a href="/requests">Users Requests</a>
+           </li>
+          <li><a href="/allitems">All Items</a>
+          <a href="/solditems">Old Items</a>
+          </li>
+          <li>
+            <a href="/logout">Settings</a>
+          <a href="/logout">Exit</a>
+          </li>
           </ul>
         ;
+      }else if(localStorage.getItem('type')!=="1"){
+          navrender = 
+          <ul>
+            <li> Hello, {localStorage.getItem('username')}</li>
+            <li>
+                <a href="/main">Home</a>
+                <a href="/profile">Profile</a>  
+            </li>
+            <li>
+                <a href="/seller">Seller Panel</a>
+                <a href="/items">My Items</a>
+            </li>
+            <li>
+              <a href="/bidder">Bidder Menu</a>
+              <a href="/bidder">My Bids</a>
+            </li>
+            <li>
+                <a href="/settings">Settings</a>
+                <a href="/logout">Logout</a>  
+            </li>
+            </ul>
+          ;
+        }
       }
       else
       {
