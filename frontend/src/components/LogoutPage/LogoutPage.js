@@ -47,6 +47,7 @@ export default LogoutPage;
 function logout_call(){
     var un = localStorage.getItem('username');
     var to = localStorage.getItem('token');
+    var rt = localStorage.getItem('rtoken');
     $.ajax({
         url: server+'logout',
         dataType: 'json',                       
@@ -54,7 +55,8 @@ function logout_call(){
         crossDomain: true,
         data: {
             u: un,
-            token: to
+            token: to,
+            rtoken: rt
         },  
         success : function(data) {
             if(!isNullOrUndefined(data['token']) && data['token']=="loggedout"){
