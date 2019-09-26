@@ -167,7 +167,6 @@ router.post('/logout' , (req,res) => {
     var query = 'SELECT * from user WHERE UserID = \'' + user.username +'\' AND token = \'' + user.token +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        //console.log('[User found:'+results.length +']');
         if(results.length === 1){
             updatedb("","",user.username);
             return res.status(200).json({"token":"loggedout"})
