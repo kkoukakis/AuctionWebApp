@@ -9,6 +9,7 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const updatedb = require('./api/auth/updatedb.js')
+const updatedb_approval = require('./api/auth/updatedb_approval.js')
 
 //Variables and Files
 const config = require('./auth-config.json')
@@ -124,12 +125,37 @@ router.post('/token', (req,res) => {
 //--------------//
 //REGISTER USER
 //--------------//
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 router.post('/register', function(req, res, next) {
-    var query = ' from user';
+    var postData = req.body;
+    const user = {
+         username: postData.username,
+         password: postData.password ,
+         fname:    postData.fname  ,
+         lname:    postData.lname    ,
+         email:    postData.email    ,
+         phone:    postData.phone    ,
+         address:  postData.address  ,
+         location: postData.location ,
+         vat:      postData.vat      
+    }
+   var done= false;
+   //check if user exists
+
+
+
+   //Insert new user
+    var query = 'INSERT INTO user (UserID, token, rtoken, UserTYPE, Password, First_Name, Last_Name, Email, Phone, Address, Location, Seller_Rating, Bidder_Rating, GPS, VAT, Approved) VALUES(\''+user.username+'\',\''+ null +'\',\''+ null +'\',\''+ "0" +'\',\''+user.password+'\',\''+user.fname+'\',\''+user.lname+'\',\''+user.email+'\',\''+user.phone+'\',\''+user.address+'\',\''+user.location+'\',\''+ null +'\',\''+ null +'\',\''+ null +'\',\''+user.vat+'\',\''+'0'+'\''+')';
+    console.log(query);
     global.connection.query(query, function (error, results, fields) {
-        if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
-        res.send(JSON.stringify(results));
+        if (error) {console.log('AAAAAAAAAAAAAAAAAAAA') ; throw error;}
+        done=true;
+        res.send(JSON.stringify({"response": "success"}));
     });
 });
 

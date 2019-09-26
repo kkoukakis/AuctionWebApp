@@ -13,14 +13,13 @@ class Register extends Component {
         this.state = {
             result:{}
         };
-      
-    
     }
+
     handleClick = function() {
-        if(getval_fromid("password")==getval_fromid("rpassword"))
+        if(getval_fromid("password")===getval_fromid("rpassword"))
         communicate(server +'register');
         else{
-            alert("Please: check password and repeat password correctly!")
+            alert("Please: check password and repeat password correctly!");
         }
       }
    
@@ -56,7 +55,7 @@ class Register extends Component {
          <input className="input2" id="firstname" type="text" title="First Name" />
          <h6 className="labelslog">Last Name</h6>
          <input className="input2" id="lastname" type="text" title="Last Name" />
-         <h6 className="labelslog">email</h6>
+         <h6 className="labelslog">Email</h6>
          <input className="input2" id="email" type="text" title="Email" />
          <h6 className="labelslog">Phone</h6>
          <input className="input2" id="phone" type="text" title="Phone" />
@@ -100,8 +99,17 @@ function communicate(url){
     var a = getval_fromid('address');
     var l = getval_fromid('location');
     var v = getval_fromid('vat');
-    alert(u +"|"+ p);
-    alert(server +"user");
+    //alert(u +"|"+ p);
+    alert(
+     u + '~'+
+     p + '~'+
+     fn+ '~'+
+     ln+ '~'+
+     e + '~'+
+     ph+ '~'+
+     a + '~'+
+     l + '~'+
+     v );
     $.ajax({
          url: url,
          dataType: 'json',                       
@@ -120,7 +128,8 @@ function communicate(url){
          },  
          success : function(data) {
             alert( data['response']);
-            window.location.reload(false);
+            window.location = '/login';
+            
         },
         error : function(req,error) {
             alert('Error occured:req['+req+"]["+error+"]");
