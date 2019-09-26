@@ -6,8 +6,8 @@ module.exports = (req,res,next) => {
   // decode token
   if (token) {
     // verifies secret and checks exp
-    
-    jwt.verify(token, config.secret, function(err, decoded) {
+    var today = new Date();
+    jwt.verify(token, config.secret+today.getDay(), function(err, decoded) {
         if (err) {
             console.log('(Unauthorized)')
             return res.status(401).json({"error": true, "message": 'Unauthorized access.' });

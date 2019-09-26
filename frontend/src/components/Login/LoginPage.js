@@ -94,6 +94,7 @@ function communicate(url){
                 alert('Welcome back, '+ data['username']);
                 setval_to_localstorage('username', data['username'])
                 setval_to_localstorage('token', data['token'])
+                setval_to_localstorage('type', data['type'])
                 setval_to_localstorage('rtoken', data['rtoken'])
              
                 window.location.reload(false);

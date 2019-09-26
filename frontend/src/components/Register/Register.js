@@ -17,7 +17,11 @@ class Register extends Component {
     
     }
     handleClick = function() {
+        if(getval_fromid("password")==getval_fromid("rpassword"))
         communicate(server +'register');
+        else{
+            alert("Please: check password and repeat password correctly!")
+        }
       }
    
     
@@ -52,10 +56,16 @@ class Register extends Component {
          <input className="input2" id="firstname" type="text" title="First Name" />
          <h6 className="labelslog">Last Name</h6>
          <input className="input2" id="lastname" type="text" title="Last Name" />
-         <p><a className="forgot" href="#">Forgot password?</a>
-         </p><p>
-         <a href="#">Check our terms and conditions. Click here.</a>
-         </p>
+         <h6 className="labelslog">email</h6>
+         <input className="input2" id="email" type="text" title="Email" />
+         <h6 className="labelslog">Phone</h6>
+         <input className="input2" id="phone" type="text" title="Phone" />
+         <h6 className="labelslog">Address</h6>
+         <input className="input2" id="address" type="text" title="Address" />
+         <h6 className="labelslog">Location</h6>
+         <input className="input2" id="location" type="text" title="Location" />
+         <h6 className="labelslog">VAT</h6>
+         <input className="input2" id="vat" type="text" title="VAT" />
          <div className="container2">
          <button type="submit" className="button-register" onClick={this.handleClick} >Register</button>
          </div>
@@ -78,18 +88,18 @@ function getval_fromid(id){
 
 }
 
-function setval_to_localstorage(name,input){
 
-   localStorage.setItem(name,input);
-    
-}
 
 function communicate(url){
     var u = getval_fromid('username');
     var p = getval_fromid('password');
-    var p = getval_fromid('password');
-    var p = getval_fromid('password');
-    var p = getval_fromid('password');
+    var fn = getval_fromid('firstname');
+    var ln = getval_fromid('lastname');
+    var e = getval_fromid('email');
+    var ph = getval_fromid('phone');
+    var a = getval_fromid('address');
+    var l = getval_fromid('location');
+    var v = getval_fromid('vat');
     alert(u +"|"+ p);
     alert(server +"user");
     $.ajax({
@@ -99,18 +109,21 @@ function communicate(url){
          crossDomain: true,
          data: {
              username: u,
-             password: p
+             password: p,
+             fname:fn,
+             lname:ln,
+             email:e,
+             phone: ph,
+             address:a,
+             location:l,
+             vat:v
          },  
          success : function(data) {
-            alert( data['response'][0].UserID);
-
-            setval_to_localstorage('username', data['response'][0].UserID)
-            
+            alert( data['response']);
             window.location.reload(false);
         },
         error : function(req,error) {
             alert('Error occured:req['+req+"]["+error+"]");
         }
-      //  beforeSend: setHeader,
     });
 }

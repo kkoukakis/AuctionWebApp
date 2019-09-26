@@ -25,8 +25,8 @@ class Welcome extends Component {
         return (
             <div className="title"> 
                <h1>Welcome Page</h1> 
-               <h3>Try to login first ^_^</h3> 
-            
+               <h3>Try to <a href='/login'>login</a> // <a href='/register'>register</a> first ^-^</h3> 
+               <h3>Or continue as a <a href='/login'>visitor</a> *-*</h3> 
             </div>
         );
     }
