@@ -63,7 +63,8 @@ router.post('/login' , (req,res) => {
             
             var type= null;
             if(results[0].UserTYPE==='1') {type ="1"; console.log('Hello admin');}
-            if(results[0].UserTYPE==='0') type =null;
+            if(results[0].UserTYPE==='0') type = "0";
+            if(results[0].UserTYPE===null) type = null;
            
              wrong = false; //wrong password = false 
              var today = new Date();

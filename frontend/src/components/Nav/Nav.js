@@ -34,7 +34,7 @@ class Nav extends Component {
     render() {
       let navrender = null;
       if(localStorage.getItem('username') != undefined && localStorage.getItem('username') != "0" && localStorage.getItem('username') != null){
-      if(localStorage.getItem('type') === undefined || localStorage.getItem('type') === "0" || localStorage.getItem('type') === null || localStorage.getItem('type')==="1"){
+      if(localStorage.getItem('type') !== undefined || localStorage.getItem('type') !== "0" || localStorage.getItem('type') !== null || localStorage.getItem('type')==="1"){
         navrender = 
         <ul>
           <li> Admin, {localStorage.getItem('username')}</li>
@@ -51,7 +51,7 @@ class Nav extends Component {
           </li>
           </ul>
         ;
-      }else if(localStorage.getItem('type')!=="1"){
+      }else if(localStorage.getItem('type')==="0"){
           navrender = 
           <ul>
             <li> Hello, {localStorage.getItem('username')}</li>

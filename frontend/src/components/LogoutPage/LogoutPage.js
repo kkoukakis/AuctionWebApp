@@ -19,19 +19,19 @@ class LogoutPage extends Component {
         console.log("Logout component did mount");    
         var interval = 1000;
         var timer1 = setInterval(function(){
-            document.getElementById("tim").innerHTML= " " + (5000-interval)/1000;
+            document.getElementById("tim").innerHTML= " " + (3000-interval)/1000;
             interval += 1000;
         }, 1000);
         var timer = setTimeout(function() {
            logout_call();
-        }, 5000);
+        }, 3000);
     }
     
     render() {
         
         return (
         <main class="centered">
-            <h1 className = "hed" >You are going to log out in:<div id="tim">5</div>sec</h1>
+            <h1 className = "hed" >You are going to log out in:<div id="tim">3</div>sec</h1>
             <p>If you want to back to the home, press: <a href="/main">here</a></p>
             <p>*After logout you will return to homepage<br />
             </p>
