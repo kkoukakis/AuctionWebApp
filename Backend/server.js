@@ -276,7 +276,6 @@ router.get('/admin/online', function(req, res) {
     console.log('>> /admin/online')
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
     var query = 'SELECT * from user WHERE LENGTH(token)>2;';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
@@ -291,7 +290,7 @@ router.get('/admin/pending', function(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
-    var query = 'SELECT UserID from users WHERE Approved = \'No\';';
+    var query = 'SELECT UserID from user WHERE Approved = \'No\';';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
         return res.status(200).json({"response":results})
@@ -300,8 +299,79 @@ router.get('/admin/pending', function(req, res) {
 
 
 //approve all users 
-router.post('/admin/approve', function(req, res, next) {
-    var query = 'UPDATE users SET Approved = "YES"';
+router.get('/admin/approve', function(req, res, next) {
+    var query = 'UPDATE user SET Approved = "Yes"';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
+router.post('/admin/delete', function(req, res, next) {
+    var postData = req.body;
+    var query = 'DELETE FROM user WHERE ItemID =\''+postData.ItemID+'\';';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
+//approve specific user
+router.get('/admin/approve', function(req, res, next) {
+    var postData = req.body;
+    var query = 'UPDATE user SET Approved = "Yes" WHERE UserID =\''+postData.UserID+'\';';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+//-----//
+//ITEMS//
+//-----//
+
+router.post('/itemedit', function(req, res, next) {
+    var postData = req.body;
+    var query = 'UPDATE item SET Name = \'' + postData.Name+'\', Category = \''+postData.category+'\' Location =\''+ postData.location+'\' Country = \'' + postData.Country +'\' WHERE ItemID =\''+postData.ItemID+'\';';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
+router.post('/deleteitem', function(req, res, next) {
+    var postData = req.body;
+    var query = 'DELETE FROM item WHERE ItemID =\''+postData.ItemID+'\';';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
+//----//
+//BIDS//
+//----//
+
+//return all bids 
+router.get('/admin/allbids', function(req, res, next) {
+    var query = 'SELECT * from bid';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
+//return all bids of a user
+router.post('/bidsuser', function(req, res, next) {
+    var query = 'SELECT * from bid WHERE Bidder_ID = \''+ req.body.UserID +'\'';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
+//return all bids of a itemid
+router.post('/bidsitem', function(req, res, next) {
+    var query = 'SELECT * from bid WHERE ItemID = \''+ req.body.ItemID +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
         return res.status(200).json({"response":results})
@@ -309,21 +379,26 @@ router.post('/admin/approve', function(req, res, next) {
 });
 
 
-
-router.get('/bids', function(req, res, next) {
-    var query = 'SELECT * from user';
+//--------
+//SEARCHES
+//--------
+router.post('/search', function(req, res, next) {
+    var Search = req.body.search;
+    var query = 'SELECT * from item WHERE name LIKE \''+ Search +'\'';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        return res.status(200).json({"response":results})
     });
 });
 
-router.get('/bid', function(req, res, next) {
-    var query = 'SELECT * from user';
+router.post('/categorysearch', function(req, res, next) {
+    var Search = req.body.category;
+    var query = 'SELECT * from item WHERE Sold = "No" AND Category =\''+ Search +'\';';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+        return res.status(200).json({"response":results})
     });
+    
 });
 
 //-----------------

@@ -18,9 +18,12 @@ USE `auction_db`;
 
 -- Dumping structure for table auction_db.bid
 CREATE TABLE IF NOT EXISTS `bid` (
-  `Bidder_ID` int(11) NOT NULL,
-  `Time` int(11) NOT NULL,
-  `Amount` int(11) NOT NULL
+  `Bidder_ID` varchar(50) NOT NULL,
+  `Time` varchar(50) NOT NULL,
+  `BidID` varchar(50) NOT NULL,
+  `Amount` varchar(50) NOT NULL,
+  `ItemID` varchar(50) NOT NULL,
+  KEY `Index` (`BidID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table auction_db.bid: ~0 rows (approximately)
@@ -29,7 +32,8 @@ CREATE TABLE IF NOT EXISTS `bid` (
 
 -- Dumping structure for table auction_db.categories
 CREATE TABLE IF NOT EXISTS `categories` (
-  `CategoryID` int(11) DEFAULT NULL
+  `CategoryID` int(11) NOT NULL,
+  `Name` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table auction_db.categories: ~0 rows (approximately)
@@ -38,69 +42,60 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 -- Dumping structure for table auction_db.item
 CREATE TABLE IF NOT EXISTS `item` (
+  `Item_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   `Category` varchar(50) NOT NULL,
   `Currently` double DEFAULT NULL,
   `Buy_Price` double NOT NULL,
-  `First_Bid` double NOT NULL,
-  `Number_of_Bids` int(11) NOT NULL,
-  `Bids` varchar(50) NOT NULL,
+  `First_Bid` double DEFAULT NULL,
+  `Number_of_Bids` int(11) DEFAULT NULL,
+  `Bids` varchar(50) DEFAULT NULL,
   `Location` varchar(50) NOT NULL,
   `Country` varchar(50) NOT NULL,
-  `Started` varchar(50) NOT NULL,
-  `Ends` varchar(50) NOT NULL,
+  `Started` varchar(50) DEFAULT NULL,
+  `Ends` varchar(50) DEFAULT NULL,
   `Seller_ID` varchar(50) NOT NULL,
-  `Item_ID` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Sold` varchar(50) NOT NULL,
+  `Description` varchar(150) DEFAULT NULL,
+  KEY `Index 1` (`Item_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table auction_db.item: ~0 rows (approximately)
+-- Dumping data for table auction_db.item: ~2 rows (approximately)
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
+INSERT INTO `item` (`Item_ID`, `Name`, `Category`, `Currently`, `Buy_Price`, `First_Bid`, `Number_of_Bids`, `Bids`, `Location`, `Country`, `Started`, `Ends`, `Seller_ID`, `Sold`, `Description`) VALUES
+	(1, 'Harry Potter', 'Books', NULL, 2, NULL, NULL, NULL, 'here', 'Greece', NULL, NULL, 'test', 'No', NULL),
+	(2, 'Harry Potter 2\r\n', 'Books', NULL, 2, NULL, NULL, NULL, 'here', 'Greece', NULL, NULL, 'test', 'No', NULL);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
-
--- Dumping structure for table auction_db.items
-CREATE TABLE IF NOT EXISTS `items` (
-  `Item_ID` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table auction_db.items: ~0 rows (approximately)
-/*!40000 ALTER TABLE `items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 -- Dumping structure for table auction_db.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` varchar(80) NOT NULL,
-  `token` varchar(80) NOT NULL,
+  `token` varchar(200) DEFAULT NULL,
+  `rtoken` varchar(200) DEFAULT NULL,
   `UserTYPE` varchar(80) NOT NULL,
   `Password` varchar(80) NOT NULL,
   `First_Name` varchar(80) NOT NULL,
   `Last_Name` varchar(80) NOT NULL,
-  `Seller_Rating` varchar(80) NOT NULL,
-  `Bidder_Rating` varchar(80) NOT NULL,
   `Email` varchar(80) NOT NULL,
+  `Phone` varchar(50) NOT NULL,
   `Address` varchar(80) NOT NULL,
-  `GPS` varchar(80) NOT NULL,
+  `Location` varchar(80) NOT NULL,
+  `Seller_Rating` varchar(80) DEFAULT NULL,
+  `Bidder_Rating` varchar(80) DEFAULT NULL,
+  `GPS` varchar(80) DEFAULT NULL,
   `VAT` varchar(80) NOT NULL,
+  `Approved` varchar(80) DEFAULT NULL,
   KEY `Index 1` (`id`),
   KEY `Index 2` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
--- Dumping data for table auction_db.user: ~1 rows (approximately)
+-- Dumping data for table auction_db.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `UserID`, `token`, `UserTYPE`, `Password`, `First_Name`, `Last_Name`, `Seller_Rating`, `Bidder_Rating`, `Email`, `Address`, `GPS`, `VAT`) VALUES
-	(1, 'test', '', '1', 'blabla', 'Konstantinos', 'Koukaksi', '5', '4', 'kkoukakis@windowslive.com', 'Salamina', '1234123', '012345567');
+INSERT INTO `user` (`id`, `UserID`, `token`, `rtoken`, `UserTYPE`, `Password`, `First_Name`, `Last_Name`, `Email`, `Phone`, `Address`, `Location`, `Seller_Rating`, `Bidder_Rating`, `GPS`, `VAT`, `Approved`) VALUES
+	(1, 'test', '', '', '1', 'blabla', 'Konstantinos', 'Koukaksi', 'kkoukakis@windowslive.com', '', 'Salamina', '', '5', '4', '1234123', '012345567', NULL),
+	(17, 'kouk', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvdWsiLCJwYXNzd29yZCI6IjEyMyIsImlhdCI6MTU2OTYwNDgzNiwiZXhwIjoxNTY5NjA1NzM2fQ.maa6U2HHI42gDPOQBxtZjd2XgUHudfhW_ouhS4IYdNI', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtvdWsiLCJwYXNzd29yZCI6IjEyMyIsImlhdCI6MTU2OTYwNDgzNiwiZXhwIjoxNTY5NjkxMjM2fQ.4W2i8orgyGoqc9aSDQH42eOSrq1z1kdENA494-eBFQE', '0', '123', 'Konstantinos', 'Koukakis', 'kkoukakis@hotmail.com', '+306988394011', 'Telamonos 82', 'here', 'null', 'null', 'null', '012345678', '0');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
--- Dumping structure for table auction_db.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `UserID` varchar(50) NOT NULL,
-  `Approved` int(11) NOT NULL,
-  `Admin` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table auction_db.users: ~0 rows (approximately)
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
