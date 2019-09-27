@@ -16,6 +16,7 @@ import Register from './components/Register/Register.js'
 import Welcome from './components/Welcome/Welcome.js'
 import Error404 from './components/Error404/Error404.js'
 import Items from './components/Items/Items.js'
+import AdminPanel from './components/Admin/AdminPanel.js'
 //import Search from './components/Nav/Search.js'
 import './App.css';
 

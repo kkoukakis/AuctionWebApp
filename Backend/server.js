@@ -105,7 +105,7 @@ router.get('/items', function(req, res) {
         if(results != null){
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-             res.send(JSON.stringify({"response": results}));
+             res.send(JSON.stringify({results}));
         }
         else{ 
             res.header("Access-Control-Allow-Origin", "*");

@@ -92,14 +92,14 @@ class Nav extends Component {
         <div>
           
 
-         <div class="button_nav-container" id="toggle">
-            <span class="top"></span>
-            <span class="middle"></span>
-            <span class="bottom"></span>
+         <div className="button_nav-container" id="toggle">
+            <span className="top"></span>
+            <span className="middle"></span>
+            <span className="bottom"></span>
           </div>
           
-          <div class="overlay" id="overlay">
-            <nav class="overlay-menu">
+          <div className="overlay" id="overlay">
+            <nav className="overlay-menu">
              {navrender}
             </nav>
           </div>

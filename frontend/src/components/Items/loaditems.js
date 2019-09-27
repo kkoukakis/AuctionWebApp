@@ -7,7 +7,6 @@ export function loaditems(url){
         crossDomain: true,
         success : function(data) {
             if(data['response'] !== null && data['response'] !== "" && data['response']!=="0"){
-               //alert('ITEMS' + JSON.stringify(data['response']));
                localStorage.setItem('items',JSON.stringify(data['response']))
                return data['items'];
             }
@@ -18,3 +17,4 @@ export function loaditems(url){
        }
    });
 }
+
