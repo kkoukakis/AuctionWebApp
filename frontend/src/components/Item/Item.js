@@ -23,13 +23,15 @@ class Item extends Component {
         const category = jsonObject['results'][id].Category;
         const Buy_Price = jsonObject['results'][id].Buy_Price;
         const SellerID = jsonObject['results'][id].SellerID;
+        const ItemID = jsonObject['results'][id].ItemID;
         const bid = "BID"
-        const moredetails = "more details"
+        const Description = jsonObject['results'][id].Description;
              //alert(jsonObject['results'][id].Name)
         let blabla ;
              if(localStorage.getItem('type')==="0"){
-                blabla =<div> <button className="thebutton">{bid}</button>
-                              <button className="thebutton">{moredetails}</button>
+                blabla =<div>
+                                <input id="bid" className="inputbid"></input> 
+                             <button className="thebutton" onClick={buyitem()}>{bid}</button>
                 </div>
                 ;
              }else{
@@ -41,12 +43,14 @@ class Item extends Component {
             return (
             <div>
                 <article className="card">
+                <p id={ItemID} >ID:{ItemID}</p>
                 <img src={imagesource} alt="Sample"/>
                 <div class="text">
                 <h3>{title}</h3>
                 <p>Category:{category}</p>
                 <p>Buy Price:{Buy_Price}€</p>
                 <p>Seller:{SellerID}</p>
+                <p>Description:{Description}</p>
                 <p>Started:{Date.now}</p>
                 {blabla}
             </div>
@@ -60,3 +64,9 @@ class Item extends Component {
 
 export default Item;
 
+function buyitem(){
+
+    
+
+
+}
