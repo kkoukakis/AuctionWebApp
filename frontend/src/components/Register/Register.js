@@ -118,8 +118,11 @@ function communicate(url){
              vat:v
          },  
          success : function(data) {
+             if(data['response'] === "exists") alert('Username already exists');
+             else{
             alert("Registration was : " + data['response'] +'ful');
             window.location = '/login';
+             }
             
         },
         error : function(req,error) {

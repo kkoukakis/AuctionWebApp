@@ -19,13 +19,14 @@ class Item extends Component {
     render() {
         //alert(this.props.items)
         let jsonObject = JSON.parse(this.props.items);
-        //const id = this.props.id;
+        const id = this.props.id;
+       // alert(id);
         const imagesource = "image1";
-        const title =jsonObject['results'][0].Name;
-        const category = jsonObject['results'][0].Category;
+        const title =jsonObject['results'][id].Name;
+        const category = jsonObject['results'][id].Category;
         const bid = "BID"
         const moredetails = "more details"
-             
+             //alert(jsonObject['results'][id].Name)
             return (
             <div>
                 <article className="card">

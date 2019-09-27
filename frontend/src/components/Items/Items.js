@@ -63,13 +63,20 @@ class Items extends Component {
               let itemcards= null;
               let jsonObject = this.state.items;
               var num = jsonObject['results'].length;
-             // alert(num);
-              var i = 0;
-              for(i = 0; i < num ; i++){                  
-              itemcards += 
-                    <Item  items={JSON.stringify(this.state.items)}/>
-              ;
-              }
+             //alert(num);
+             var i = 0;
+
+             if(localStorage.getItem('type')==="1"){
+
+             }
+
+
+             itemcards = [
+             <Item items={JSON.stringify(this.state.items)} id={0}/>];
+             if(num>1)
+            for(i=1; i<=num-1; i++){
+             itemcards.push(<Item  items={JSON.stringify(this.state.items)} id={i}/>);
+                }
               return(
             <div>
             <div className="title"> 

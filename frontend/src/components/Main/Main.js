@@ -23,7 +23,7 @@ class Main extends Component {
     render() {
         return (
             <div className='title'>
-               <h1>MAIN PAGE</h1> 
+               <h1>My Items And My Bids</h1> 
             </div>
         );
     }

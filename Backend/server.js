@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const updatedb = require('./api/auth/updatedb.js')
 const updatedb_approval = require('./api/auth/updatedb_approval.js')
+const user_exists = require('./api/auth/user_exists.js')
 
 //Variables and Files
 const config = require('./auth-config.json')
@@ -162,11 +163,12 @@ router.post('/register', function(req, res, next) {
          location: postData.location ,
          vat:      postData.vat      
     }
-   var done= false;
+   var exists = false;
    //check if user exists
 
-
-
+    exists = user_exists(user.username);
+    
+    if(exists === false){
    //Insert new user
     var query = 'INSERT INTO user (UserID, token, rtoken, UserTYPE, Password, First_Name, Last_Name, Email, Phone, Address, Location, Seller_Rating, Bidder_Rating, GPS, VAT, Approved) VALUES(\''+user.username+'\',\''+ null +'\',\''+ null +'\',\''+ "0" +'\',\''+user.password+'\',\''+user.fname+'\',\''+user.lname+'\',\''+user.email+'\',\''+user.phone+'\',\''+user.address+'\',\''+user.location+'\',\''+ null +'\',\''+ null +'\',\''+ null +'\',\''+user.vat+'\',\''+'0'+'\''+')';
     console.log(query);
@@ -175,6 +177,9 @@ router.post('/register', function(req, res, next) {
         done=true;
         res.send(JSON.stringify({"response": "success"}));
     });
+    }else{
+        return res.status(200).json({"response":"exists"})
+    }
 });
 
 //============================================//
