@@ -26,6 +26,7 @@ const jwt = require('jsonwebtoken');
 const updatedb = require('./api/auth/updatedb.js')
 const updatedb_approval = require('./api/auth/updatedb_approval.js')
 const user_exists = require('./api/auth/user_exists.js')
+const bid_exists = require('./api/auth/bid_exists.js')
 
 //Variables and Files
 const config = require('./auth-config.json')
@@ -395,11 +396,18 @@ router.post('/bidsitem', function(req, res, next) {
 
 //add bid and update item
 router.post('/addbid', function(req, res, next) {
-    var query = 'INSERT * from bid WHERE ItemID = \''+ req.body.ItemID +'\'';
+    var postData = req.body;
+
+    if(bid_exists(postData.UserID, postData.ItemID)!==false){
+       
+            return res.status(200).json({'results': 'error'})
+    }else{
+    var query = 'INSERT INTO bid (Bidder_ID, Time, Amount, ItemID) VALUES(\''+postData.UserID+'\',\''+ Date.now+'\',\''+postData.Bid+'\',\''+postData.ItemID+'\')';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        return res.status(200).json({"response":results})
+        return res.status(200).json({results})
     });
+    }
 });
 
 //--------
