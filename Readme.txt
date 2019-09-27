@@ -43,3 +43,5 @@ jsonwebtoken on every api call
 
 To file settings.js 
 ρυθμίζει το ip tou server pou tha trexei h efarmogh
+
+git repo : http://www.github.com/kkoukakis/AuctionWebApp
