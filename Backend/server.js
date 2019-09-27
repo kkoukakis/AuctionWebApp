@@ -97,6 +97,24 @@ router.post('/login' , (req,res) => {
     });
 })
 
+router.get('/items', function(req, res) {
+    console.log('>> /items/');
+    var query = 'SELECT * from item WHERE Sold = \'' + 'No'+'\'';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        if(results != null){
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+             res.send(JSON.stringify({"response": results}));
+        }
+        else{ 
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.send(JSON.stringify({"response": "0"}));
+        }
+    });
+}); 
+
 //---------//
 //  token  //
 //---------//

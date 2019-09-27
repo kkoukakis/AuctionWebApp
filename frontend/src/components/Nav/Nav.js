@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import css from './Nav.css';
-import Safe from "react-safe"
-
-import Search from './Search.js'
+import  './Nav.css';
+//import Safe from "react-safe"
+//
+//import Search from './Search.js'
 
 class Nav extends Component {
     
@@ -33,8 +33,8 @@ class Nav extends Component {
 
     render() {
       let navrender = null;
-      if(localStorage.getItem('username') != undefined && localStorage.getItem('username') != "0" && localStorage.getItem('username') != null){
-      if(localStorage.getItem('type') !== undefined || localStorage.getItem('type') !== "0" || localStorage.getItem('type') !== null || localStorage.getItem('type')==="1"){
+      if(localStorage.getItem('username') !== undefined && localStorage.getItem('username') !== "0" && localStorage.getItem('username') !== null){
+      if(localStorage.getItem('type') !== undefined && localStorage.getItem('type') !== "0" && localStorage.getItem('type') !== null && localStorage.getItem('type')==="1"){
         navrender = 
         <ul>
           <li> Admin, {localStorage.getItem('username')}</li>

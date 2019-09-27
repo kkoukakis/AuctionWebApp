@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import html from './Main.css'
+import './Main.css'
+//import $ from 'jquery';
 
 class Main extends Component {
     

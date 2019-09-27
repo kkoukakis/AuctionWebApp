@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import css from './Register.css'
+import  './Register.css'
 import  '../../settings.js';
 import {changebackground, server} from '../../settings.js';
 
@@ -100,16 +100,7 @@ function communicate(url){
     var l = getval_fromid('location');
     var v = getval_fromid('vat');
     //alert(u +"|"+ p);
-    alert(
-     u + '~'+
-     p + '~'+
-     fn+ '~'+
-     ln+ '~'+
-     e + '~'+
-     ph+ '~'+
-     a + '~'+
-     l + '~'+
-     v );
+    //alert(u + '~'+p + '~'+fn+ '~'+ln+ '~'+e + '~'+ph+ '~'+a + '~'+l + '~'+v );
     $.ajax({
          url: url,
          dataType: 'json',                       
@@ -127,7 +118,7 @@ function communicate(url){
              vat:v
          },  
          success : function(data) {
-            alert( data['response']);
+            alert("Registration was : " + data['response'] +'ful');
             window.location = '/login';
             
         },

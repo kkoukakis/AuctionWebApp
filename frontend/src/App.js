@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// /import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 
-//http://localhost:3000
+
 //Settings
-import server from './settings.js';
+//import server from './settings.js';
 
 //Components
 import Main from './components/Main/Main.js'
@@ -15,7 +15,8 @@ import LogoutPage from './components/LogoutPage/LogoutPage.js'
 import Register from './components/Register/Register.js'
 import Welcome from './components/Welcome/Welcome.js'
 import Error404 from './components/Error404/Error404.js'
-import Search from './components/Nav/Search.js'
+import Items from './components/Items/Items.js'
+//import Search from './components/Nav/Search.js'
 import './App.css';
 
 class App extends Component {
@@ -29,14 +30,14 @@ class App extends Component {
     };
   }
 
-  renderProtectedComponent(ProtectedComponent) {
-    if (this.state.username !== null && this.state.username !== "0") {
-        return (props) => <ProtectedComponent {...props} />;
-    }
-    else {
-        return (props) => <Redirect to='/login' />;
-    }
-  }
+  // renderProtectedComponent(ProtectedComponent) {
+  //   if (this.state.username !== null && this.state.username !== "0") {
+  //       return (props) => <ProtectedComponent {...props} />;
+  //   }
+  //   else {
+  //       return (props) => <Redirect to='/login' />;
+  //   }
+  // }
 
   
   renderProtectedComponent(ProtectedComponent , page) {
@@ -92,11 +93,11 @@ class App extends Component {
 
   }
 
-componentWillMount(){
-  let t = localStorage.getItem('token');
-  let u = localStorage.getItem('username');
-  let type = localStorage.getItem('type');
-}
+// componentWillMount(){
+//   //let t = localStorage.getItem('token');
+//   //let u = localStorage.getItem('username');
+//   //let type = localStorage.getItem('type');
+// }
  
   render() {
     return (
@@ -112,6 +113,7 @@ componentWillMount(){
               <Route path="/main"   component ={this.renderProtectedComponent(Main, "main")} />
               <Route path="/login"  component={this.renderProtectedComponent(LoginPage, "login")} />  
               <Route path="/logout"  component={LogoutPage} />  
+              <Route path="/items"  component={Items} />  
               <Route path="/register"  component={this.renderProtectedComponent(Register, "register")} />  
               <Route path="/404" component={Error404} />
               <Redirect to="/404" />

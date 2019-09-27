@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import css from './LoginPage.css'
+import './LoginPage.css'
 import {changebackground, server} from '../../settings.js';
 
 
@@ -89,7 +89,7 @@ function communicate(url){
              p: pa
          },  
          success : function(data) {
-             if(data['token'] != null && data['token'] != "" && data['token']!="wrong"){
+             if(data['token'] !== null && data['token'] !== "" && data['token']!=="wrong"){
         
                 alert('Welcome back, '+ data['username']);
                 setval_to_localstorage('username', data['username'])
@@ -98,7 +98,7 @@ function communicate(url){
                 setval_to_localstorage('rtoken', data['rtoken'])
              
                 window.location.reload(false);
-             }else if(data['token'] == "wrong"){
+             }else if(data['token'] === "wrong"){
                 alert('ERROR CREDENTIALS')
              }
         },

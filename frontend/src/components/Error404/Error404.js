@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import css from './Error.css';
+//import $ from 'jquery';
+import './Error.css';
 
 class Error404 extends Component {
     
@@ -13,9 +13,9 @@ class Error404 extends Component {
     
     componentDidMount() {        
         console.log("Error404 component did mount");    
-        var timer = setTimeout(function() {
+        setTimeout(function() {
             window.location='/'
-        }, 5000);
+        }, 3000);
     }
     
     render() {
@@ -23,7 +23,7 @@ class Error404 extends Component {
         <div className="centered">
             <h1 className="neg title"><span className="bg">Error - 404</span></h1>
             <p className="centered">An error has occured, :</p>
-            <p className="centered">* We will return you to our homepage in 5 seconds<br />
+            <p className="centered">* We will return you to our homepage in 3 seconds<br />
             * Send us an e-mail about this error and try later.</p>
             <nav className="nav centered">
               <a href="/" className="link">homepage</a>

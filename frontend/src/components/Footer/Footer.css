@@ -11,3 +11,10 @@
   color: whitesmoke;
   text-decoration: none;
  }
+
+ 
+@media only screen and (max-width: 600px) {
+    .footer_name a{
+        font-size: 10px;
+    }
+  }

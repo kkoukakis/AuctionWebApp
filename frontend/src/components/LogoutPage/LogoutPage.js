@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import css from './LogoutPage.css';
+import './LogoutPage.css';
 import { isNullOrUndefined } from 'util';
-
-//var server = 'http://192.168.1.193:3030/';
-var server = 'http://localhost:3030/';
+import {server} from '../../settings';
 
 class LogoutPage extends Component {
     
@@ -18,11 +16,11 @@ class LogoutPage extends Component {
     componentDidMount() {        
         console.log("Logout component did mount");    
         var interval = 1000;
-        var timer1 = setInterval(function(){
+        setInterval(function(){
             document.getElementById("tim").innerHTML= " " + (3000-interval)/1000;
             interval += 1000;
         }, 1000);
-        var timer = setTimeout(function() {
+        setTimeout(function() {
            logout_call();
         }, 3000);
     }
@@ -59,7 +57,7 @@ function logout_call(){
             rtoken: rt
         },  
         success : function(data) {
-            if(!isNullOrUndefined(data['token']) && data['token']=="loggedout"){
+            if(!isNullOrUndefined(data['token']) && data['token']==="loggedout"){
                      
                localStorage.clear();
                window.location = '/';
