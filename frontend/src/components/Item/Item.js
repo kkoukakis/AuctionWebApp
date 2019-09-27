@@ -24,6 +24,7 @@ class Item extends Component {
         const Buy_Price = jsonObject['results'][id].Buy_Price;
         const SellerID = jsonObject['results'][id].SellerID;
         const ItemID = jsonObject['results'][id].ItemID;
+        const Started = jsonObject['results'][id].Started;
         const bid = "BID"
         const Description = jsonObject['results'][id].Description;
              //alert(jsonObject['results'][id].Name)
@@ -31,7 +32,7 @@ class Item extends Component {
              if(localStorage.getItem('type')==="0"){
                 blabla =<div>
                                 <input id="bid" className="inputbid"></input> 
-                             <button className="thebutton" onClick={buyitem()}>{bid}</button>
+                             <button className="thebutton" onClick={buyitem}>{bid}</button>
                 </div>
                 ;
              }else{
@@ -43,7 +44,7 @@ class Item extends Component {
             return (
             <div>
                 <article className="card">
-                <p id='item' >ID:{ItemID}</p>
+                <p id='item' value={ItemID} >ID:{ItemID}</p>
                 <img src={imagesource} alt="Sample"/>
                 <div class="text">
                 <h3>{title}</h3>
@@ -51,7 +52,7 @@ class Item extends Component {
                 <p>Buy Price:{Buy_Price}€</p>
                 <p>Seller:{SellerID}</p>
                 <p>Description:{Description}</p>
-                <p>Started:{Date.now}</p>
+                <p>Started:{Started}</p>
                 {blabla}
             </div>
             </article>
@@ -67,7 +68,7 @@ export default Item;
 function buyitem(){
     var url = server+'sellitem'
    var bid = document.getElementById('bid').value;
-   var itemid = document.getElementById('bid').value;
+   var itemid = document.getElementById('item').value;
    var u = localStorage.getItem('username')
    var token = localStorage.getItem('token')
    $.ajax({

@@ -20,17 +20,12 @@ const app = express();
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-
-
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const updatedb = require('./api/auth/updatedb.js')
 const updatedb_approval = require('./api/auth/updatedb_approval.js')
 const user_exists = require('./api/auth/user_exists.js')
-
-
-
 
 //Variables and Files
 const config = require('./auth-config.json')
@@ -299,7 +294,7 @@ router.get('/admin/pending', function(req, res) {
 
 
 //approve all users 
-router.get('/admin/approve', function(req, res, next) {
+router.get('/admin/approveall', function(req, res, next) {
     var query = 'UPDATE user SET Approved = "Yes"';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
@@ -328,6 +323,17 @@ router.get('/admin/approve', function(req, res, next) {
 //-----//
 //ITEMS//
 //-----//
+
+router.post('/additem', function(req, res, next) {
+    var postData = req.body;
+    var query = 'INSERT INTO  item  (Name, Category, Location, Country, Started, Sold, Buy_Price, Seller_ID, Ends) VALUES ( \''+ postData.name+'\',\''+postData.Category+'\',\''+ postData.Location+'\',\'' + postData.Country +'\',\''+ Date.now() +'\',\'No\',\''+postData.Buy_Price+'\',\''+postData.UserID+'\',\''+postData.Ends+'\');';
+    console.log(query);
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
 
 router.post('/itemedit', function(req, res, next) {
     var postData = req.body;

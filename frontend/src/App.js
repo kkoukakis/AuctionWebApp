@@ -32,16 +32,7 @@ class App extends Component {
     };
   }
 
-  // renderProtectedComponent(ProtectedComponent) {
-  //   if (this.state.username !== null && this.state.username !== "0") {
-  //       return (props) => <ProtectedComponent {...props} />;
-  //   }
-  //   else {
-  //       return (props) => <Redirect to='/login' />;
-  //   }
-  // }
-
-  
+ 
   renderProtectedComponent(ProtectedComponent , page) {
 
     if(page==="main"){
@@ -70,6 +61,25 @@ class App extends Component {
       }
       else {
         return (props) => <ProtectedComponent {...props} />;
+      }
+    }
+    if(page==="sellitem"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+        return (props) => <ProtectedComponent {...props} />;
+         
+      }
+      else {
+        return (props) => <Redirect to='/main' />;
+      }
+    }
+
+    if(page==="admin"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+        return (props) => <ProtectedComponent {...props} />;
+         
+      }
+      else {
+        return (props) => <Redirect to='/main' />;
       }
     }
 
@@ -118,7 +128,7 @@ class App extends Component {
               <Route path="/sellitem"  component={this.renderProtectedComponent(Sellitem, "sellitem")} />  
               <Route path="/logout"  component={LogoutPage} />  
               <Route path="/items"  component={Items} />  
-              <Route path="/admin" component={AdminPanel} />
+              <Route path="/admin" component={this.renderProtectedComponent(AdminPanel, "admin")} />
               <Route path="/register"  component={this.renderProtectedComponent(Register, "register")} />  
               <Route path="/404" component={Error404} />
               <Redirect to="/404" />

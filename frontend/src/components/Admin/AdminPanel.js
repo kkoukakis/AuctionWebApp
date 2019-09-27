@@ -22,7 +22,7 @@ class AdminPanel extends Component {
         
         window.addEventListener('load', this.handleload());
         this.getStuff(server+'items')
-        this.getStuff(server+'users')
+        this.getStuff(server+'admin/users')
       
     }
 

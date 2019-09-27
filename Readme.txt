@@ -21,7 +21,6 @@
 >> Admin is already installed
 >> Admin panel (Admin μπορεί να δει όλους τους χρήστες και να κάνει approve και να κάνει export σε JSON, XML )
 >> Redirect main (done)
->> 
 
 //---------------------------//
 //          BACKEND          //
@@ -36,6 +35,29 @@ commands i used:
 >> Authorization
 jsonwebtoken on every api call
 
+api calls:
+
+[ALL USERS]
+/login
+/register
+/items
+
+[FOR LOGGED IN USERS]
+/itemedit
+/deleteitem
+/bidsuser
+/bidsitem
+/search
+/categorysearch
+
+[FOR admin]
+/admin/allitems
+/admin/online
+/admin/pending
+/admin/approve
+/admin/approveall
+/admin/delete
+/admin/allbids
 
 //--------
 //SETTINGS
@@ -46,7 +68,13 @@ To file settings.js
 
 git repo : http://www.github.com/kkoukakis/AuctionWebApp
 
-
+//--------
 //Database
+//--------
 
 >> MariaDB
+
+item
+bid 
+category 
+user 

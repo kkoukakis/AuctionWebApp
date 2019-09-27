@@ -16,8 +16,8 @@ class Sellitem extends Component {
     }
 
     handleClick = function() {
-        communicate(server +'sellitem');
-       
+        var a = communicate(server +'additem');
+        console.log(a);
       }
    
     
@@ -86,18 +86,42 @@ function communicate(url){
     var Co   = getval_fromid('Country');
     var En    = getval_fromid('Ends');
     
+    if(!isNumber(BP)) {alert('Check input Buy Price'); return;}
+    if(En.trim()==="") {
+        alert('Check input Ends'); 
+        return "error"
+    }
+    if(Co.trim()===""){
+        alert('Check input Country'); 
+        return "error"
+    }
+    if(Lo.trim()===""){
+        alert('Check input Location'); 
+        return "error"
+    }
+    if((ti.trim()==="")){
+        alert('Check input Title'); 
+        return "error"
+    }
+    if(Ca.trim()===""){
+        alert('Check input Category');
+     return "error"
+    }
+
      $.ajax({
          url: url,
          dataType: 'json',                       
          type: 'POST'  ,
          crossDomain: true,
          data: {
+             UserID: localStorage.getItem('username'),
              name: ti,
              Category: Ca,
              Buy_Price:BP,
              Location:Lo,
              Country: Co,
-             Ends:En
+             Ends:En,
+             token: localStorage.getItem('token')
          },  
          success : function(data) {
             window.location = '/items';
@@ -106,3 +130,6 @@ function communicate(url){
         });
 
 }
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
