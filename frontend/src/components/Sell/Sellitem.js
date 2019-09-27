@@ -79,31 +79,32 @@ function getval_fromid(id){
 
 
 function communicate(url){
-    var ti   = getval_fromid('name');
-    var Ca = getval_fromid('Category');
-    var BP    = getval_fromid('Buy_Price');
-    var Lo    = getval_fromid('Location');
-    var Co   = getval_fromid('Country');
-    var En    = getval_fromid('Ends');
+    var ti    = getval_fromid('name').trim();
+    var Ca    = getval_fromid('Category').trim();
+    var BP    = getval_fromid('Buy_Price').trim();
+    var Lo    = getval_fromid('Location').trim();
+    var Co    = getval_fromid('Country').trim();
+    var En    = getval_fromid('Ends').trim();
     
     if(!isNumber(BP)) {alert('Check input Buy Price'); return;}
-    if(En.trim()==="") {
+    
+    if(En ==="") {
         alert('Check input Ends'); 
-        return "error"
+        return "error";
     }
-    if(Co.trim()===""){
+    if(Co ===""){
         alert('Check input Country'); 
         return "error"
     }
-    if(Lo.trim()===""){
+    if(Lo ===""){
         alert('Check input Location'); 
         return "error"
     }
-    if((ti.trim()==="")){
+    if((ti ==="")){
         alert('Check input Title'); 
         return "error"
     }
-    if(Ca.trim()===""){
+    if(Ca ===""){
         alert('Check input Category');
      return "error"
     }
@@ -123,7 +124,7 @@ function communicate(url){
              Ends:En,
              token: localStorage.getItem('token')
          },  
-         success : function(data) {
+         success : function() {
             window.location = '/items';
              }
             
