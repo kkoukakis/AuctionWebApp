@@ -71,11 +71,10 @@ export default Item;
 
 function buyitem(){
     var url = server+'addbid'
-   //var bid = document.getElementById('bid').value;
-   var bid = localStorage.getItem('bid');
+   var bid1 =  document.getElementById('bid1').value;
    localStorage.removeItem('bid');
 
-   alert(bid);
+   //alert(bid1);
    var itemid = document.getElementById('item').value;
    var u = localStorage.getItem('username')
 
@@ -86,7 +85,7 @@ function buyitem(){
     crossDomain: true,
     data: {
         UserID: u,
-        Bid: bid,
+        Bid: bid1,
         ItemId: itemid,
         token: localStorage.getItem('token')
     },  
