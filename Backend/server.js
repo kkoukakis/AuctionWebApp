@@ -3,14 +3,36 @@
 //----------------------//
 
 // Libraries
+
+
+
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('server.key', 'utf8');
+var certificate = fs.readFileSync('server.cert', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
 const express = require('express');
 const app = express();
+
+// express configuration here
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+
+
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const updatedb = require('./api/auth/updatedb.js')
 const updatedb_approval = require('./api/auth/updatedb_approval.js')
 const user_exists = require('./api/auth/user_exists.js')
+
+
+
 
 //Variables and Files
 const config = require('./auth-config.json')
@@ -256,7 +278,7 @@ router.get('/admin/online', function(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var query = 'SELECT * from user WHERE LENGTH(token)>2;';
+    var query = 'UPDATE * from user WHERE LENGTH(token)>2;';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
         return res.status(200).json({"response":results})
@@ -308,7 +330,8 @@ router.get('/bid', function(req, res, next) {
 // START THE SERVER
 //-----------------
 const  port = process.env.PORT || 3030;
-app.listen(port);
+httpServer.listen(port);
+//httpsServer.listen(port);
 
 console.log('Magic happens on port: ' + port);
 console.log('................................');
