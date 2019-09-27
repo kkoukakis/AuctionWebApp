@@ -20,6 +20,7 @@ import AdminPanel from './components/Admin/AdminPanel.js'
 //import Search from './components/Nav/Search.js'
 import './App.css';
 import Sellitem from './components/Sell/Sellitem.js';
+import MyItems from './components/MyItems/MyItems.js';
 
 class App extends Component {
   constructor(props){
@@ -102,6 +103,17 @@ class App extends Component {
         return (props) => <ProtectedComponent {...props} />;
       }
     }
+    if(page==="MyItems"){
+      if (this.state.username !== null && this.state.username !== "0" ) {
+          
+          return (props) => <ProtectedComponent {...props} />; 
+         
+          
+      }
+      else {
+        return (props) => <Redirect to='/main' />;
+      }
+    }
 
   }
 
@@ -124,6 +136,7 @@ class App extends Component {
               <Route exact path="/item/:id" component={Welcome}/>
               <Route path="/main"   component ={this.renderProtectedComponent(Main, "main")} />
               <Route path="/login"  component={this.renderProtectedComponent(LoginPage, "login")} />  
+              <Route path="/myitems"  component={this.renderProtectedComponent(MyItems, "MyItems")} />  
               
               <Route path="/sellitem"  component={this.renderProtectedComponent(Sellitem, "sellitem")} />  
               <Route path="/logout"  component={LogoutPage} />  

@@ -353,6 +353,15 @@ router.post('/deleteitem', function(req, res, next) {
     });
 });
 
+router.post('/myitems', function(req, res, next) {
+    var postData = req.body;
+    var query = 'SELECT * FROM item WHERE Seller_ID =\''+postData.UserID+'\';';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        return res.status(200).json({"response":results})
+    });
+});
+
 //----//
 //BIDS//
 //----//

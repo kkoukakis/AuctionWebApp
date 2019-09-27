@@ -57,7 +57,7 @@ class Nav extends Component {
             <li> Hello, {localStorage.getItem('username')}</li>
             <li>
                 <a href="/main">Home</a>
-                <a href="/profile">Profile</a>  
+                {/* <a href="/profile">Profile</a>   */}
             </li>
             <li>
               <a href="/items">Buy Items</a>
