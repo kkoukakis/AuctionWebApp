@@ -68,7 +68,7 @@
   .card .text {
     padding: 0 20px 20px;
   }
-  .card .text > button {
+  .thebutton {
     background: gray;
     border: 0;
     color: whitesmoke;
@@ -76,7 +76,7 @@
     width: 100%;
     }
     
-    .card .text > button:hover {
+    .thebutton:hover {
       background: rgb(115, 138, 82);
       border: 0;
       color: rgb(207, 207, 207);

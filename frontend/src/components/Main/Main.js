@@ -24,6 +24,12 @@ class Main extends Component {
         return (
             <div className='title'>
                <h1>My Items And My Bids</h1> 
+               <ul>
+               <li><a href="/items">Items to buy</a></li>
+               <li><a href="/mybids">My Bids</a></li>
+               <li><a href="/sellitem">Sell item</a></li>
+               <li><a href="/myitems">My items</a></li>
+               </ul>
             </div>
         );
     }

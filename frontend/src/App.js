@@ -19,6 +19,7 @@ import Items from './components/Items/Items.js'
 import AdminPanel from './components/Admin/AdminPanel.js'
 //import Search from './components/Nav/Search.js'
 import './App.css';
+import Sellitem from './components/Sell/Sellitem.js';
 
 class App extends Component {
   constructor(props){
@@ -113,8 +114,11 @@ class App extends Component {
               <Route exact path="/item/:id" component={Welcome}/>
               <Route path="/main"   component ={this.renderProtectedComponent(Main, "main")} />
               <Route path="/login"  component={this.renderProtectedComponent(LoginPage, "login")} />  
+              
+              <Route path="/sellitem"  component={this.renderProtectedComponent(Sellitem, "sellitem")} />  
               <Route path="/logout"  component={LogoutPage} />  
               <Route path="/items"  component={Items} />  
+              <Route path="/admin" component={AdminPanel} />
               <Route path="/register"  component={this.renderProtectedComponent(Register, "register")} />  
               <Route path="/404" component={Error404} />
               <Redirect to="/404" />

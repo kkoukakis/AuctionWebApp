@@ -116,6 +116,23 @@ router.get('/items', function(req, res) {
     });
 }); 
 
+router.get('/admin/allitems', function(req, res) {
+    console.log('>> /admin/allitems/');
+    var query = 'SELECT * from item ';
+    global.connection.query(query, function (error, results, fields) {
+        if (error) throw error;
+        if(results != null){
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+             res.send(JSON.stringify({results}));
+        }
+        else{ 
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.send(JSON.stringify({"response": "0"}));
+        }
+    });
+}); 
 //---------//
 //  token  //
 //---------//
@@ -208,7 +225,6 @@ router.get('/user/auth/:UserID', function(req, res) {
         }
     });
 }); 
-
 
 
 router.post('/logout' , (req,res) => {

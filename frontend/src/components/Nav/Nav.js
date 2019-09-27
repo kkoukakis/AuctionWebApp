@@ -60,15 +60,15 @@ class Nav extends Component {
                 <a href="/profile">Profile</a>  
             </li>
             <li>
-                <a href="/seller">Seller Panel</a>
-                <a href="/items">My Items</a>
+              <a href="/items">Buy Items</a>
+              <a href="/mybids">My Bids</a>
             </li>
             <li>
-              <a href="/bidder">Bidder Menu</a>
-              <a href="/bidder">My Bids</a>
+                <a href="/sellitem">Sell Item</a>
+                <a href="/myitems">My Items</a>
             </li>
+            
             <li>
-                <a href="/settings">Settings</a>
                 <a href="/logout">Logout</a>  
             </li>
             </ul>

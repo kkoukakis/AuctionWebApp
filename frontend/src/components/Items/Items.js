@@ -19,7 +19,11 @@ class Items extends Component {
     componentDidMount() {        
         console.log("Welcome component did mount");
         window.addEventListener('load', this.handleload());
+        if(this.props.items === undefined)
         this.getStuff(server+'items')
+        else{
+            this.setState({items : this.props.items})
+        }
       
     }
 

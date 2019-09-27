@@ -7,7 +7,6 @@ var query = 'SELECT * from user WHERE UserID = \''+userid+'\'';
         if(results.length !== 0){
             //USER EXISTS
             return true;
-          
         }else{
             return false;
         }
