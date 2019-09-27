@@ -1,5 +1,9 @@
 # AuctionWebApp
 
+AM:1115201400289
+Konstantinos Koukakis
+TDED Project
+
 REST API : nodejs
 FrontEnd : react
 
