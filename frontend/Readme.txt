@@ -35,3 +35,11 @@ commands i used:
     openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out certificate.pem
 >> Authorization
 jsonwebtoken on every api call
+
+
+//--------
+//SETTINGS
+//--------
+
+To file settings.js 
+ρυθμίζει το ip tou server pou tha trexei h efarmogh

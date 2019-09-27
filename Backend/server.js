@@ -4,8 +4,6 @@
 
 // Libraries
 
-
-
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
@@ -63,6 +61,8 @@ app.use(function(req, res, next){
 
 var router = app; //express.js router
 
+
+
 //---------//
 //  login  //
 //---------//
@@ -74,7 +74,6 @@ router.post('/login' , (req,res) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     const user = { "username": postData.u , "password": postData.p}
     var wrong = true;
-    var success = false;
     
     // database authentication here, with username and password combination.
     var query = 'SELECT * from user WHERE UserID = \'' + user.username +'\' AND Password = \'' + user.password +'\'';
@@ -91,9 +90,9 @@ router.post('/login' , (req,res) => {
             if(results[0].UserTYPE===null) type = null;
            
              wrong = false; //wrong password = false 
-             var today = new Date();
+             //var today = new Date();
 
-             const token = jwt.sign(user, config.secret+today.getDay(), { expiresIn: config.tokenLife})
+             const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
              const refreshToken = jwt.sign(user, config.refreshTokenSecret+Date.now(), { expiresIn: config.refreshTokenLife})
              const response = {
                  "status": "Logged in",
@@ -272,25 +271,27 @@ router.post('/logout' , (req,res) => {
     });
 })
 
-
+//return all online users
 router.get('/admin/online', function(req, res) {
     console.log('>> /admin/online')
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-    var query = 'UPDATE * from user WHERE LENGTH(token)>2;';
+    var query = 'SELECT * from user WHERE LENGTH(token)>2;';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
         return res.status(200).json({"response":results})
     });
 });
 
+
+//return all requested users for approval
 router.get('/admin/pending', function(req, res) {
     console.log('>> /admin/pending')
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
-    var query = 'SELECT UserID from users WHERE Approved = \'false\';';
+    var query = 'SELECT UserID from users WHERE Approved = \'No\';';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
         return res.status(200).json({"response":results})
@@ -298,13 +299,12 @@ router.get('/admin/pending', function(req, res) {
 });
 
 
-
-router.post('/admin/adduser', function(req, res, next) {
-    var query = ' from user';
+//approve all users 
+router.post('/admin/approve', function(req, res, next) {
+    var query = 'UPDATE users SET Approved = "YES"';
     global.connection.query(query, function (error, results, fields) {
         if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
-        res.send(JSON.stringify(results));
+        return res.status(200).json({"response":results})
     });
 });
 

@@ -1,8 +1,8 @@
 //Every Auction
 import React, { Component } from 'react';
-//import $ from 'jquery';
+import $ from 'jquery';
 import './Item.css'
-
+import {server}from '../../settings'
 
 class Item extends Component {
     
@@ -43,7 +43,7 @@ class Item extends Component {
             return (
             <div>
                 <article className="card">
-                <p id={ItemID} >ID:{ItemID}</p>
+                <p id='item' >ID:{ItemID}</p>
                 <img src={imagesource} alt="Sample"/>
                 <div class="text">
                 <h3>{title}</h3>
@@ -65,8 +65,34 @@ class Item extends Component {
 export default Item;
 
 function buyitem(){
-
-    
+    var url = server+'sellitem'
+   var bid = document.getElementById('bid').value;
+   var itemid = document.getElementById('bid').value;
+   var u = localStorage.getItem('username')
+   var token = localStorage.getItem('token')
+   $.ajax({
+    url: url,
+    dataType: 'json',                       
+    type: 'POST'  ,
+    crossDomain: true,
+    data: {
+        username: u,
+        bid: bid,
+        itemid: itemid,
+        token: token
+    },  
+    success : function(data) {
+        if(data['response'] === "exists") alert('ItemID already exists');
+        else{
+       alert(data['response'] );
+       window.location = '/items';
+        }
+       
+   },
+   error : function(req,error) {
+       alert('Error occured:req['+req+"]["+error+"]");
+   }
+});
 
 
 }
