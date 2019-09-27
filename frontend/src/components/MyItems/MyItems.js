@@ -37,9 +37,8 @@ class MyItems extends Component {
                 UserID: localStorage.getItem('username'),
                 token: localStorage.getItem('token')
             },  
-            success : function(results) {
-                 this.setState({items : results})
-                }
+            success : results => this.setState({items : results})
+                
                
            });
     }
