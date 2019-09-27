@@ -9,10 +9,12 @@ class Item extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items:null
+            items:null,
+            bid:null
         }
     }
-   
+    handleChange(event) {  this.setState({bid: event.target.value});
+localStorage.setItem('bid', this.state.bid)}
     render() {
         //alert(this.props.items)
         let jsonObject = JSON.parse(this.props.items);
@@ -23,7 +25,7 @@ class Item extends Component {
         const category = jsonObject['results'][id].Category;
         const Buy_Price = jsonObject['results'][id].Buy_Price;
         const SellerID = jsonObject['results'][id].SellerID;
-        const ItemID = jsonObject['results'][id].ItemID;
+        const ItemID = jsonObject['results'][id].Item_ID;
         const Started = jsonObject['results'][id].Started;
         const bid = "BID"
         const Description = jsonObject['results'][id].Description;
@@ -31,7 +33,8 @@ class Item extends Component {
         let blabla ;
              if(localStorage.getItem('type')==="0"){
                 blabla =<div>
-                                <input id="bid" className="inputbid"></input> 
+                             
+                            <input type="text" id='bid1' className='inputbid' value={this.state.bid} onChange={this.handleChange.bind(this)}/>
                              <button className="thebutton" onClick={buyitem}>{bid}</button>
                 </div>
                 ;
@@ -42,9 +45,10 @@ class Item extends Component {
              }
 
             return (
+                
             <div>
                 <article className="card">
-                <p id='item' value={ItemID} >ID:{ItemID}</p>
+                <p id='item' value={ItemID}>ID:{ItemID}</p>
                 <img src={imagesource} alt="Sample"/>
                 <div class="text">
                 <h3>{title}</h3>
@@ -66,21 +70,25 @@ class Item extends Component {
 export default Item;
 
 function buyitem(){
-    var url = server+'sellitem'
-   var bid = document.getElementById('bid').value;
+    var url = server+'addbid'
+   //var bid = document.getElementById('bid').value;
+   var bid = localStorage.getItem('bid');
+   localStorage.removeItem('bid');
+
+   alert(bid);
    var itemid = document.getElementById('item').value;
    var u = localStorage.getItem('username')
-   var token = localStorage.getItem('token')
+
    $.ajax({
     url: url,
     dataType: 'json',                       
     type: 'POST'  ,
     crossDomain: true,
     data: {
-        username: u,
-        bid: bid,
-        itemid: itemid,
-        token: token
+        UserID: u,
+        Bid: bid,
+        ItemId: itemid,
+        token: localStorage.getItem('token')
     },  
     success : function(data) {
         if(data['response'] === "exists") alert('ItemID already exists');

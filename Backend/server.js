@@ -397,9 +397,8 @@ router.post('/bidsitem', function(req, res, next) {
 //add bid and update item
 router.post('/addbid', function(req, res, next) {
     var postData = req.body;
-
+    console.log(postData)
     if(bid_exists(postData.UserID, postData.ItemID)!==false){
-       
             return res.status(200).json({'results': 'error'})
     }else{
     var query = 'INSERT INTO bid (Bidder_ID, Time, Amount, ItemID) VALUES(\''+postData.UserID+'\',\''+ Date.now+'\',\''+postData.Bid+'\',\''+postData.ItemID+'\')';
